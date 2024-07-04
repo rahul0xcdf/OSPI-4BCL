@@ -8,6 +8,26 @@ const PhoneNumVer = ({setTfa}) =>{
         event.preventDefault();
         setTfa(true);
     }
+    const [bdrRadius,setBdrRadius] = useState("0%");
+    const buttonStyle = {
+        borderRadius : bdrRadius,
+    }
+    const OnEnter = () =>{
+        setBdrRadius("20%");
+    }
+    const onLeave = () =>{
+        setBdrRadius("0%");
+    }
+    const [bdrRadius2,setBdrRadius2] = useState("0%");
+    const buttonStyle2 = {
+        borderRadius : bdrRadius2,
+    }
+    const OnEnter2 = () =>{
+        setBdrRadius2("20%");
+    }
+    const onLeave2 = () =>{
+        setBdrRadius2("0%");
+    }
 
     let phNum = "7294318374";
     let maskedNum = "XXXXXX"
@@ -19,6 +39,10 @@ const PhoneNumVer = ({setTfa}) =>{
     const handlePhNum = (event) =>{
         setPhNumCol(event.target.value)
     }
+    const clrscr = ()=>{
+        setPhNumCol("")
+    }
+    const shouldDispClear = phNumCol.length > 0
     return(
         <div>
             <h1 align="center">Verification Using Registered Mobile Number</h1>
@@ -30,7 +54,9 @@ const PhoneNumVer = ({setTfa}) =>{
                 <input type = "text" className = "inputBox" value = {phNumCol} onChange = {handlePhNum} maxLength = {10} minLength={10}
                 placeholder='eg "2940312783" ' required/>
                 <br></br><br></br>
-                <button type = "submit" className = "buttons">Verify</button>
+                <button type = "submit" className = "buttons" style = {buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave}>Verify</button>
+                <br></br><br></br>{shouldDispClear && <button onClick = {clrscr} className = "buttons" style = {buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button>}
+
             </form></h2>
         </div>
     );

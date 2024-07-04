@@ -9,7 +9,26 @@ const SecQues = ({setSfa,setTfa}) =>{
         setSfa(true);
         setTfa(false);
     }
-
+    const [bdrRadius,setBdrRadius] = useState("0%");
+    const buttonStyle = {
+        borderRadius : bdrRadius,
+    }
+    const OnEnter = () =>{
+        setBdrRadius("20%");
+    }
+    const onLeave = () =>{
+        setBdrRadius("0%");
+    }
+    const [bdrRadius2,setBdrRadius2] = useState("0%");
+    const buttonStyle2 = {
+        borderRadius : bdrRadius2,
+    }
+    const OnEnter2 = () =>{
+        setBdrRadius2("20%");
+    }
+    const onLeave2 = () =>{
+        setBdrRadius2("0%");
+    }
     let sq1 = "Security Question 1: What is ....";
     let sq2 = "Security Question 2: What is ....";
     let sq3 = "Security Question 3: What is ...."
@@ -25,6 +44,12 @@ const SecQues = ({setSfa,setTfa}) =>{
     const handleSq3 = (event) =>{
         setSq3Col(event.target.value)
     }
+    const clrscr = ()=>{
+        setSq1Col("");
+        setSq2Col("");
+        setSq3Col("");
+    }
+    const shouldDispClear = (sq1Col.length > 0 || sq2Col.length > 0 || sq3Col.length > 0)
     return (
         <div>
             <h1 align="center">Security Questions</h1>
@@ -48,7 +73,8 @@ const SecQues = ({setSfa,setTfa}) =>{
                 <input type = "text" className = "inputBox" value = {sq3Col} onChange = {handleSq3} maxLength = {20} minLength={3}
                 placeholder='Your answer' required/>
                 <br></br><br></br>
-                <button type = "submit" className = "buttons">Submit</button>
+                <button type = "submit" className = "buttons" style = {buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave}>Submit</button>
+                <br></br><br></br>{shouldDispClear && <button onClick = {clrscr} className = "buttons" style = {buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button>}
             </form></h2>
         </div>
     );
