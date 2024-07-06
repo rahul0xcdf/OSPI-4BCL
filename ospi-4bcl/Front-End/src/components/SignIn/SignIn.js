@@ -2,12 +2,33 @@ import React from 'react'
 import {useState} from "react"
 import "./signIn.css"
 
-const SignIn = ({setFfa, setSfa}) => {
+const SignIn = ({setFfa, setSfa,setUsnm,setPswrd,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setPhNo}) => {
 
+    const clrscr = ()=>{
+        setUserNameCol("");
+        setPasswordCol("");
+    }    
     const OnSubmitFxn = (event) =>{
         event.preventDefault();
-        setFfa(true);
-        setSfa(false);
+        const newArr = ["123","123","DefaultQ","DefaultQ","DefaultQ","123","123","123","1234567899"];
+        if(userNameCol === newArr[0] && passwordCol === newArr[1])
+        {
+            setUsnm(newArr[0]);
+            setPswrd(newArr[1]);
+            setSQ1(newArr[2]);
+            setSQ2(newArr[3]);
+            setSQ3(newArr[4]);
+            setAns1(newArr[5]);
+            setAns2(newArr[6]);
+            setAns3(newArr[7]);
+            setPhNo(newArr[8]);
+            setFfa(true);
+            setSfa(false);
+        }
+        else{
+            alert("ERROR! Please enter correct username and password.");
+            clrscr();
+        }
     }
     const [bdrRadius,setBdrRadius] = useState("0%");
    
@@ -37,11 +58,8 @@ const SignIn = ({setFfa, setSfa}) => {
     const[passwordCol,setPasswordCol] = useState("") //creates a state passwordCol
     const handlePassword = (event) =>{
         setPasswordCol(event.target.value)
-    }
-    const clrscr = ()=>{
-        setUserNameCol("");
-        setPasswordCol("");
-    }
+    }//
+    
     const shouldDispClear = (userNameCol.length > 0 || passwordCol.length > 0)
     return(
         <div>

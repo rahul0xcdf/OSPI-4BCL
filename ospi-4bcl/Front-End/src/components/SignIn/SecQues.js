@@ -2,12 +2,24 @@ import React from 'react'
 import {useState} from "react"
 import "./signIn.css"
 
-const SecQues = ({setSfa,setTfa}) =>{
+const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3}) =>{
 
+    const clrscr = ()=>{
+        setSq1Col("");
+        setSq2Col("");
+        setSq3Col("");
+    }
     const OnSubmitFxn = (event) =>{
         event.preventDefault();
-        setSfa(true);
-        setTfa(false);
+        if(sq1Col.toLowerCase() === ans1.toLowerCase() && sq2Col.toLowerCase() === ans2.toLowerCase() && sq3Col.toLowerCase() === ans3.toLowerCase())
+        {
+            setSfa(true);
+            setTfa(false);
+        }
+        else{
+            alert("ERROR! Please enter correct answers.");
+            clrscr();
+        }
     }
     const [bdrRadius,setBdrRadius] = useState("0%");
     const buttonStyle = {
@@ -29,9 +41,7 @@ const SecQues = ({setSfa,setTfa}) =>{
     const onLeave2 = () =>{
         setBdrRadius2("0%");
     }
-    let sq1 = "Security Question 1: What is ....";
-    let sq2 = "Security Question 2: What is ....";
-    let sq3 = "Security Question 3: What is ...."
+    
     const[sq1Col,setSq1Col] = useState("") //creates a state userNameCol
     const handleSq1 = (event) =>{
         setSq1Col(event.target.value)
@@ -44,11 +54,7 @@ const SecQues = ({setSfa,setTfa}) =>{
     const handleSq3 = (event) =>{
         setSq3Col(event.target.value)
     }
-    const clrscr = ()=>{
-        setSq1Col("");
-        setSq2Col("");
-        setSq3Col("");
-    }
+    
     const shouldDispClear = (sq1Col.length > 0 || sq2Col.length > 0 || sq3Col.length > 0)
     return (
         <div>
@@ -56,19 +62,19 @@ const SecQues = ({setSfa,setTfa}) =>{
             <hr color="black"></hr><br></br>
             <h2 align = "center"><form onSubmit = {OnSubmitFxn} id = "SecQuesForm">
                 <label>
-                    {sq1}
+                    {SQ1}
                 </label><br></br>
                 <input type = "text" className = "inputBox" value = {sq1Col} onChange = {handleSq1} maxLength = {20} minLength={3}
                 placeholder='Your answer' required/>
                 <br></br><br></br>
                 <label>
-                    {sq2}
+                    {SQ2}
                 </label><br></br>
                 <input type = "text" className = "inputBox" value = {sq2Col} onChange = {handleSq2} maxLength = {20} minLength={3}
                 placeholder='Your answer' required/>
                 <br></br><br></br>
                 <label>
-                    {sq3}
+                    {SQ3}
                 </label><br></br>
                 <input type = "text" className = "inputBox" value = {sq3Col} onChange = {handleSq3} maxLength = {20} minLength={3}
                 placeholder='Your answer' required/>

@@ -2,11 +2,21 @@ import React from 'react'
 import {useState} from "react"
 import "./signIn.css"
 
-const PhoneNumVer = ({setTfa}) =>{
+const PhoneNumVer = ({setTfa,phNo}) =>{
 
+    const clrscr = ()=>{
+        setPhNumCol("")
+    }
     const OnSubmitFxn = (event) =>{
         event.preventDefault();
-        setTfa(true);
+        if(phNumCol === phNo)
+        {
+            setTfa(true);
+        }
+        else{
+            alert("ERROR! Please enter correct mobile number.");
+            clrscr();
+        }
     }
     const [bdrRadius,setBdrRadius] = useState("0%");
     const buttonStyle = {
@@ -29,19 +39,16 @@ const PhoneNumVer = ({setTfa}) =>{
         setBdrRadius2("0%");
     }
 
-    let phNum = "7294318374";
     let maskedNum = "XXXXXX"
     for(var i = 1; i <= 4;i++)
     {
-        maskedNum += phNum[i+5];
+        maskedNum += phNo[i+5];
     }
     const[phNumCol,setPhNumCol] = useState("") //creates a state 
     const handlePhNum = (event) =>{
         setPhNumCol(event.target.value)
     }
-    const clrscr = ()=>{
-        setPhNumCol("")
-    }
+    
     const shouldDispClear = phNumCol.length > 0
     return(
         <div>
