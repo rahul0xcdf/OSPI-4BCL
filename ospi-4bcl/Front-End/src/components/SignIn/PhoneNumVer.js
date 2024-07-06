@@ -2,20 +2,27 @@ import React from 'react'
 import {useState} from "react"
 import "./signIn.css"
 
-const PhoneNumVer = ({setTfa,phNo}) =>{
+const PhoneNumVer = ({setTfa,phNo,ctrT,setCtrT}) =>{
 
     const clrscr = ()=>{
         setPhNumCol("")
     }
     const OnSubmitFxn = (event) =>{
         event.preventDefault();
+        if(ctrT < 3)
+        {
         if(phNumCol === phNo)
         {
             setTfa(true);
         }
         else{
             alert("ERROR! Please enter correct mobile number.");
+            setCtrT(ctrT+1);
             clrscr();
+        }
+        }
+        else{
+            alert("ERROR! All your tries are over! Please try again later.");
         }
     }
     const [bdrRadius,setBdrRadius] = useState("0%");

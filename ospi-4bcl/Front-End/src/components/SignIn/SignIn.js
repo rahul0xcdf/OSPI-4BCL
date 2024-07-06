@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from "react"
 import "./signIn.css"
 
-const SignIn = ({setFfa, setSfa,setUsnm,setPswrd,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setPhNo}) => {
+const SignIn = ({setFfa, setSfa,setUsnm,setPswrd,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setPhNo,ctrF,setCtrF}) => {
 
     const clrscr = ()=>{
         setUserNameCol("");
@@ -11,6 +11,8 @@ const SignIn = ({setFfa, setSfa,setUsnm,setPswrd,setSQ1,setSQ2,setSQ3,setAns1,se
     const OnSubmitFxn = (event) =>{
         event.preventDefault();
         const newArr = ["123","123","DefaultQ","DefaultQ","DefaultQ","123","123","123","1234567899"];
+        if(ctrF < 3)
+        {
         if(userNameCol === newArr[0] && passwordCol === newArr[1])
         {
             setUsnm(newArr[0]);
@@ -27,8 +29,13 @@ const SignIn = ({setFfa, setSfa,setUsnm,setPswrd,setSQ1,setSQ2,setSQ3,setAns1,se
         }
         else{
             alert("ERROR! Please enter correct username and password.");
+            setCtrF(ctrF+1);
             clrscr();
         }
+    }
+    else{
+        alert("ERROR! All your tries are over! Please try again later.");
+    }
     }
     const [bdrRadius,setBdrRadius] = useState("0%");
    

@@ -16,14 +16,17 @@ const App = () => {
   const [ans2, setAns2] = useState("");
   const [ans3, setAns3] = useState("");
   const [phNo, setPhNo] = useState("");
+  const [ctrF,setCtrF] = useState(0);
+  const [ctrS,setCtrS] = useState(0);
+  const [ctrT,setCtrT] = useState(0);
 
   return (
     <div>
-      {ffa !== true && <SignIn setFfa={setFfa} setSfa = {setSfa} setUsnm = {setUsnm} setPswrd = {setPswrd} setSQ1 = {setSQ1} setSQ2 = {setSQ2}
-      setSQ3 = {setSQ3} setAns1 = {setAns1}  setAns2 = {setAns2} setAns3 = {setAns3} setPhNo = {setPhNo}/>}
-      {sfa !== true && <SecQues setSfa={setSfa} setTfa = {setTfa} SQ1 = {SQ1} SQ2 = {SQ2} SQ3 = {SQ3}
-      ans1 = {ans1} ans2 = {ans2} ans3 = {ans3}/>}
-      {tfa !== true && <PhoneNumVer setTfa={setTfa} phNo = {phNo}/>}
+      {(ffa !== true && ctrF < 3) && <SignIn setFfa={setFfa} setSfa = {setSfa} setUsnm = {setUsnm} setPswrd = {setPswrd} setSQ1 = {setSQ1} setSQ2 = {setSQ2}
+      setSQ3 = {setSQ3} setAns1 = {setAns1}  setAns2 = {setAns2} setAns3 = {setAns3} setPhNo = {setPhNo} ctrF = {ctrF} setCtrF = {setCtrF}/>}
+      {(sfa !== true && ctrS < 3) && <SecQues setSfa={setSfa} setTfa = {setTfa} SQ1 = {SQ1} SQ2 = {SQ2} SQ3 = {SQ3}
+      ans1 = {ans1} ans2 = {ans2} ans3 = {ans3} ctrS = {ctrS} setCtrS = {setCtrS}/>}
+      {(tfa !== true && ctrT < 3) && <PhoneNumVer setTfa={setTfa} phNo = {phNo} ctrT = {ctrT} setCtrT = {setCtrT}/>}
     </div>
   );
 }
