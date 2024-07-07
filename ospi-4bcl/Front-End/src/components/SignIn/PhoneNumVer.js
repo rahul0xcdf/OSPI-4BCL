@@ -2,7 +2,11 @@ import React from 'react'
 import {useState} from "react"
 import "./signIn.css"
 
+<<<<<<< HEAD
 const PhoneNumVer = ({setTfa,phone_no}) =>{
+=======
+const PhoneNumVer = ({setTfa,phNo,ctrT,setCtrT}) =>{
+>>>>>>> d93d3762fe87e3207d72d9b90ed517c527ef274e
 
     const clrscr = ()=>{
         setPhNumCol("")
@@ -10,12 +14,26 @@ const PhoneNumVer = ({setTfa,phone_no}) =>{
 
     const OnSubmitFxn = (event) =>{
         event.preventDefault();
+<<<<<<< HEAD
         if(phNumCol === phone_no)
             {setTfa(true);
             }
+=======
+        if(ctrT < 3)
+        {
+        if(phNumCol === phNo)
+        {
+            setTfa(true);
+        }
+>>>>>>> d93d3762fe87e3207d72d9b90ed517c527ef274e
         else{
             alert("ERROR! Please enter correct mobile number.");
+            setCtrT(ctrT+1);
             clrscr();
+        }
+        }
+        else{
+            alert("ERROR! All your tries are over! Please try again later.");
         }
     }
 

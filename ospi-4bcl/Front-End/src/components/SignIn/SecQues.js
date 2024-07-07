@@ -3,6 +3,10 @@ import axios from 'axios';
 import "./signIn.css";
 //const {SignIn} = require( './SignIn');
 
+<<<<<<< HEAD
+=======
+const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
+>>>>>>> d93d3762fe87e3207d72d9b90ed517c527ef274e
 
 
 
@@ -19,6 +23,7 @@ const SecQues = ({ setSfa, setTfa,username,password, SQ1,SQ2,SQ3,ans1,ans2,ans3 
 
     const OnSubmitFxn = (event) => {
         event.preventDefault();
+<<<<<<< HEAD
 
         if (
             sq1Col.toLowerCase() === ans1.toLowerCase() &&
@@ -29,7 +34,23 @@ const SecQues = ({ setSfa, setTfa,username,password, SQ1,SQ2,SQ3,ans1,ans2,ans3 
             setTfa(false);
         } else {
             alert('ERROR! Please enter correct answers.');
+=======
+        if(ctrS < 3)
+        {
+        if(sq1Col.toLowerCase() === ans1.toLowerCase() && sq2Col.toLowerCase() === ans2.toLowerCase() && sq3Col.toLowerCase() === ans3.toLowerCase())
+        {
+            setSfa(true);
+            setTfa(false);
+        }
+        else{
+            alert("ERROR! Please enter correct answers.");
+            setCtrS(ctrS+1);
+>>>>>>> d93d3762fe87e3207d72d9b90ed517c527ef274e
             clrscr();
+        }
+        }
+        else{
+            alert("ERROR! All your tries are over! Please try again later.");
         }
     }
 
