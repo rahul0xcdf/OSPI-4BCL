@@ -3,14 +3,11 @@ import axios from 'axios';
 import "./signIn.css";
 //const {SignIn} = require( './SignIn');
 
-<<<<<<< HEAD
-=======
 const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
->>>>>>> d93d3762fe87e3207d72d9b90ed517c527ef274e
 
 
 
-const SecQues = ({ setSfa, setTfa,username,password, SQ1,SQ2,SQ3,ans1,ans2,ans3 }) => {
+
     
     //console.log(SQ1);
 
@@ -23,18 +20,6 @@ const SecQues = ({ setSfa, setTfa,username,password, SQ1,SQ2,SQ3,ans1,ans2,ans3 
 
     const OnSubmitFxn = (event) => {
         event.preventDefault();
-<<<<<<< HEAD
-
-        if (
-            sq1Col.toLowerCase() === ans1.toLowerCase() &&
-            sq2Col.toLowerCase() === ans2.toLowerCase() &&
-            sq3Col.toLowerCase() === ans3.toLowerCase()
-        ) {
-            setSfa(true);
-            setTfa(false);
-        } else {
-            alert('ERROR! Please enter correct answers.');
-=======
         if(ctrS < 3)
         {
         if(sq1Col.toLowerCase() === ans1.toLowerCase() && sq2Col.toLowerCase() === ans2.toLowerCase() && sq3Col.toLowerCase() === ans3.toLowerCase())
@@ -45,7 +30,6 @@ const SecQues = ({ setSfa, setTfa,username,password, SQ1,SQ2,SQ3,ans1,ans2,ans3 
         else{
             alert("ERROR! Please enter correct answers.");
             setCtrS(ctrS+1);
->>>>>>> d93d3762fe87e3207d72d9b90ed517c527ef274e
             clrscr();
         }
         }
@@ -77,15 +61,15 @@ const SecQues = ({ setSfa, setTfa,username,password, SQ1,SQ2,SQ3,ans1,ans2,ans3 
         setBdrRadius2("0%");
     }
     
-    const[sq1Col,setSq1Col] = useState("") //creates a state userNameCol
+    const[sq1Col,setSq1Col] = useState("") 
     const handleSq1 = (event) =>{
         setSq1Col(event.target.value)
     }
-    const[sq2Col,setSq2Col] = useState("") //creates a state userNameCol
+    const[sq2Col,setSq2Col] = useState("")
     const handleSq2 = (event) =>{
         setSq2Col(event.target.value)
     }
-    const[sq3Col,setSq3Col] = useState("") //creates a state userNameCol
+    const[sq3Col,setSq3Col] = useState("")
     const handleSq3 = (event) =>{
         setSq3Col(event.target.value)
     }
