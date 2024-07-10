@@ -41,6 +41,7 @@ const findUser = async (username, password) => {
   }
 };
 
+<<<<<<< HEAD
 // Save user route
 app.post('/save', async (req, res) => {
   const { username, password, ans1, ans2, ans3, phone_no, SQ1, SQ2, SQ3, email_id } = req.body;
@@ -116,3 +117,6 @@ app.post('/getSecurityQuestions', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+=======
+ 
+>>>>>>> 101dbe9ac519453ae07d385593f0748ebb0dbd9b
