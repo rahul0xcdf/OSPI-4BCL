@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import "./signIn.css";
-//const {SignIn} = require( './SignIn');
+import React from 'react'
+import {useState} from "react"
+import "./signIn.css"
 
 const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
 
-
-
-
-    
-    //console.log(SQ1);
-
-    
     const clrscr = ()=>{
         setSq1Col("");
         setSq2Col("");
         setSq3Col("");
     }
-
-    const OnSubmitFxn = (event) => {
+    const OnSubmitFxn = (event) =>{
         event.preventDefault();
         if(ctrS < 3)
         {
@@ -37,9 +28,6 @@ const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
             alert("ERROR! All your tries are over! Please try again later.");
         }
     }
-
-    
-
     const [bdrRadius,setBdrRadius] = useState("0%");
     const buttonStyle = {
         borderRadius : bdrRadius,
@@ -61,71 +49,48 @@ const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
         setBdrRadius2("0%");
     }
     
-    const[sq1Col,setSq1Col] = useState("") 
+    const[sq1Col,setSq1Col] = useState("") //creates a state userNameCol
     const handleSq1 = (event) =>{
         setSq1Col(event.target.value)
     }
-    const[sq2Col,setSq2Col] = useState("")
+    const[sq2Col,setSq2Col] = useState("") //creates a state userNameCol
     const handleSq2 = (event) =>{
         setSq2Col(event.target.value)
     }
-    const[sq3Col,setSq3Col] = useState("")
+    const[sq3Col,setSq3Col] = useState("") //creates a state userNameCol
     const handleSq3 = (event) =>{
         setSq3Col(event.target.value)
     }
     
     const shouldDispClear = (sq1Col.length > 0 || sq2Col.length > 0 || sq3Col.length > 0)
-
-
     return (
         <div>
             <h1 align="center">Security Questions</h1>
             <hr color="black"></hr><br></br>
-            <h2 align="center">
-                <form onSubmit={OnSubmitFxn} id="SecQuesForm">
-                    <label>{SQ1}</label><br></br>
-                    <input
-                        type="text"
-                        className="inputBox"
-                        value={sq1Col}
-                        onChange={handleSq1}
-                        maxLength={20}
-                        minLength={3}
-                        placeholder="Your answer"
-                        required
-                    />
-                    <br></br><br></br>
-                    <label>{SQ2}</label><br></br>
-                    <input
-                        type="text"
-                        className="inputBox"
-                        value={sq2Col}
-                        onChange={handleSq2}
-                        maxLength={20}
-                        minLength={3}
-                        placeholder="Your answer"
-                        required/>
-                    <br></br><br></br>
-                    <label>{SQ3}</label><br></br>
-                    <input
-                        type="text"
-                        className="inputBox"
-                        value={sq3Col}
-                        onChange={handleSq3}
-                        maxLength={20}
-                        minLength={3}
-                        placeholder="Your answer"
-                        required
-                    />
-                    <br></br><br></br>
-                    <button type="submit" className="buttons" style = {buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave}>Submit</button>
-                    <br></br><br></br>{shouldDispClear && <button onClick = {clrscr} className = "buttons" style = {buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button>}
-                
-                </form>
-            </h2>
+            <h2 align = "center"><form onSubmit = {OnSubmitFxn} id = "SecQuesForm">
+                <label>
+                    {SQ1}
+                </label><br></br>
+                <input type = "text" className = "inputBox" value = {sq1Col} onChange = {handleSq1} maxLength = {20} minLength={3}
+                placeholder='Your answer' required/>
+                <br></br><br></br>
+                <label>
+                    {SQ2}
+                </label><br></br>
+                <input type = "text" className = "inputBox" value = {sq2Col} onChange = {handleSq2} maxLength = {20} minLength={3}
+                placeholder='Your answer' required/>
+                <br></br><br></br>
+                <label>
+                    {SQ3}
+                </label><br></br>
+                <input type = "text" className = "inputBox" value = {sq3Col} onChange = {handleSq3} maxLength = {20} minLength={3}
+                placeholder='Your answer' required/>
+                <br></br><br></br>
+                <button type = "submit" className = "buttons" style = {buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave}>Submit</button>
+                <br></br><br></br>{shouldDispClear && <button onClick = {clrscr} className = "buttons" style = {buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button>}
+            </form></h2>
         </div>
     );
-};
+}
 
 export default SecQues;
-

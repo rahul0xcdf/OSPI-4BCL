@@ -6,7 +6,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 //import SecQues from './SecQues';
 
-const SignIn = ({ setFfa, setSfa, setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo }) => {
+
+const SignIn = ({ setSignUp, setFfa, setSfa, setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,ctrF,setCtrF }) => {
   const [username, setUsernameCol] = useState('');
   const [password, setPasswordCol] = useState('');
   const [error, setError] = useState('');
@@ -15,6 +16,12 @@ const SignIn = ({ setFfa, setSfa, setUsername, setPassword, setSQ1, setSQ2, setS
     setUsernameCol("");
     setPasswordCol("");
 }    
+
+const goSignUp = (event) =>{
+  event.preventDefault();
+  setFfa(true);
+  setSignUp(false);
+} 
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -74,7 +81,7 @@ const SignIn = ({ setFfa, setSfa, setUsername, setPassword, setSQ1, setSQ2, setS
                     {shouldDispClear && <div><br></br><br></br><button onClick={clrscr} className="buttons" style={buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button></div>}
       </form>
       </h2><br></br><br></br>
-            <p align="center">Don't have an account? <a href="google.com">Create an account</a></p>
+            <p align="center">Don't have an account? <form onSubmit = {goSignUp}><button type = "submit">Create an account</button></form></p>
             {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
