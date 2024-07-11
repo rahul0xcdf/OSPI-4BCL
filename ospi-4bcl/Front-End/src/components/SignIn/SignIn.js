@@ -7,7 +7,7 @@ import axios from 'axios';
 //import SecQues from './SecQues';
 
 
-const SignIn = ({ setSignUp, setFfa, setSfa, setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,ctrF,setCtrF }) => {
+const SignIn = ({ setSignUp, setFfa, setSfa, setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,setEmailId,ctrF,setCtrF }) => {
   const [username, setUsernameCol] = useState('');
   const [password, setPasswordCol] = useState('');
   const [error, setError] = useState('');
@@ -27,6 +27,7 @@ const goSignUp = (event) =>{
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/login', { username, password });
+      if(ctrF < 3){
       if (response.status===200) {
         setUsername(username);
         setPassword(password);
@@ -37,12 +38,18 @@ const goSignUp = (event) =>{
         setAns2(response.data.ans2);
         setAns3(response.data.ans3);
         setphoneNo(response.data.phone_no);
+        setEmailId(response.data.email_id)
         console.log(response.data.SQ1);
         
         setFfa(true);
         setSfa(false); 
         
       }
+      else{
+        alert("All attempts failed! You have crossed the 3 tries limit.");
+        setCtrF(ctrF+1);
+      }
+    }
     } catch (error) {
       setError(error.response.data.message);
       clrscr();
