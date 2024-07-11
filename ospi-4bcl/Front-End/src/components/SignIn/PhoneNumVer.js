@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './signIn.css';
 
-const PhoneNumVer = ({ setTfa, phone_no }) => {
+const PhoneNumVer = ({ setTfa, setOtpA, phone_no,ctrT,setCtrT }) => {
+    
     const [phNumCol, setPhNumCol] = useState("");
-    const [ctrT, setCtrT] = useState(0);
+    
     const [bdrRadius, setBdrRadius] = useState("0%");
     const [bdrRadius2, setBdrRadius2] = useState("0%");
 
@@ -15,6 +16,7 @@ const PhoneNumVer = ({ setTfa, phone_no }) => {
         event.preventDefault();
         if (phNumCol === phone_no) {
             setTfa(true);
+            setOtpA(false);
         } else {
             if (ctrT < 3) {
                 alert("ERROR! Please enter correct mobile number.");
