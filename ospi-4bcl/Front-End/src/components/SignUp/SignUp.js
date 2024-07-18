@@ -11,6 +11,67 @@ const SignUp = ({ setSignUp, setFfa }) => {
     const [answers, setAnswers] = useState(['', '', '']);
     const [submitted, setSubmitted] = useState(false);
     const [errors, setErrors] = useState({});
+    const [bdrRadius, setBdrRadius] = useState("0%");
+    const [bdrRadius2, setBdrRadius2] = useState("0%");
+
+    
+    function generatePassword(length = 12, includeUppercase = true, includeNumbers = true, includeSymbols = true) {
+        const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+        const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const numberChars = '0123456789';
+        const symbolChars = '!@#$'; // '!@#$%^&*()_+~`|}{[]:;?><,./-='
+        
+        let charSet = lowercaseChars;
+        if (includeUppercase) charSet += uppercaseChars;
+        if (includeNumbers) charSet += numberChars;
+        if (includeSymbols) charSet += symbolChars;
+      
+        let password = '';
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * charSet.length);
+          password += charSet[randomIndex];
+        }
+      
+        return password;
+      }
+
+    const clrscr = () => {
+        setUsername("");
+        setEmail("");
+        setPhone("");
+        setPassword("");
+        setSelectedQuestions(['', '', '']);
+        setAnswers(['', '', '']);
+        setSubmitted(false);
+        setErrors({});
+    }
+    const[psString,setPsString] = useState('');
+    let suggestedPassword = (psString);
+
+    const handlePasswordFocus = () =>{
+        setPsString('Suggested: '+ generatePassword(12,true,true,true));
+    }
+    const handlePasswordBlur = () =>{
+        setPsString('');
+    }
+    
+    const OnEnter = () => {
+        setBdrRadius("20%");
+    };
+
+    const onLeave = () => {
+        setBdrRadius("0%");
+    };
+
+    const OnEnter2 = () => {
+        setBdrRadius2("20%");
+    };
+
+    const onLeave2 = () => {
+        setBdrRadius2("0%");
+    };
+
+    const shouldDispClear = (username.length > 0 || email.length > 0 || phone.length > 0 || password.length > 0 || email.length > 0 || answers[0].length > 0 || answers[1].length > 0 || answers[2].length > 0);
 
     const questions = [
         "What was your childhood best friend’s nickname?",
@@ -75,8 +136,8 @@ const SignUp = ({ setSignUp, setFfa }) => {
             .then(response => {
                 console.log(response.data);
                 setSubmitted(true);
-                setSignUp(false); // Set SignUp to false to hide the form
-                setFfa(true); // Set Ffa to true to show the next form
+                setSignUp(true); // Set SignUp to false to hide the form
+                setFfa(false); // Set Ffa to true to show the next form
             })
             .catch(error => {
                 console.error('There was an error saving the data!', error);
@@ -91,22 +152,31 @@ const SignUp = ({ setSignUp, setFfa }) => {
                     <div className="left-side">
                         <label>
                             Name:
-                            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}  maxLength={20} minLength={3} placeholder='e.g. "your-name123"' required/>
                             {errors.name && <p className="error">{errors.name}</p>}
                         </label><br /><br />
                         <label>
                             Email:
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} 
+                            maxLength={50} 
+                            minLength={7}
+                            placeholder='e.g. your-name@abcd.com ' 
+                            required/>
                             {errors.email && <p className="error">{errors.email}</p>}
                         </label><br /><br />
                         <label>
                             Phone Number:
-                            <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                            <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} 
+                            maxLength={10} 
+                            minLength={10}
+                            placeholder='e.g. "123456789" ' 
+                            required/>
                             {errors.phone && <p className="error">{errors.phone}</p>}
                         </label><br /><br />
                         <label>
                             Password:
-                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} maxLength={20} minLength={3} required autoComplete="off" placeholder= {suggestedPassword}
+                            onFocus={handlePasswordFocus} onBlur={handlePasswordBlur}/>
                             {errors.password && <p className="error">{errors.password}</p>}
                         </label>
                     </div>
@@ -132,7 +202,25 @@ const SignUp = ({ setSignUp, setFfa }) => {
                                 <br /><br />
                             </div>
                         ))}
-                        <button type="submit" className="submit-button">Submit</button>
+                        <button type="submit" 
+                        className="buttons" 
+                        style={{ borderRadius: bdrRadius }} 
+                        onMouseEnter={OnEnter} 
+                        onMouseLeave={onLeave}>
+                            Submit
+                            </button><br></br>
+                        <h2 align = "center">
+                            {shouldDispClear && 
+                        <button 
+                            onClick={clrscr} 
+                            className="buttons" 
+                            style={{ borderRadius: bdrRadius2 }} 
+                            onMouseEnter={OnEnter2} 
+                            onMouseLeave={onLeave2}
+                        >
+                            Clear
+                        </button>
+                    }</h2>
                     </div>
                 </form>
                 {submitted && (

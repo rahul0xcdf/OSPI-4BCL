@@ -8,7 +8,12 @@ body {
     align-items: center;
     height: 100vh;
 }
-
+.buttons{
+    height: 50px;
+    width: 200px;
+    font-size: 30px;
+    font-family: Helvetica, sans-serif;
+}
 .App {
     text-align: center;
 }
