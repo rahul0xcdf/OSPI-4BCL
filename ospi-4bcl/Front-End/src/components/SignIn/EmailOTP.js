@@ -50,15 +50,12 @@ const EmailOTP = ({setOtpA,setDbd,email_id}) =>{
     };
     var i = 0;
     let maskedEmail = "";
-    while(email_id[i] !== "@")
-    {
-        if(i%2 !== 0)
-        {
-            maskedEmail[i] += "X";
-        }
-        else
-        {
-            maskedEmail[i] += email_id[i];
+    for (let i = 0; i < email_id.length; i++) {
+        if (email_id[i] === "@") {
+            maskedEmail += email_id.substring(i);
+            break;
+        } else {
+            maskedEmail += (i % 2 !== 0) ? "X" : email_id[i];
         }
     }
     const handleOTPcol = (event) => {
@@ -150,7 +147,7 @@ const EmailOTP = ({setOtpA,setDbd,email_id}) =>{
     const resendOtp = () =>{
         clearTimer(getDeadTime());
         clrscr();
-        alert("OTP re-sent! Please check your emails.");
+        alert("OTP re-sent! Please check your email.");
         //resendOtp();
     }
     let shouldDispClear = otpCol.length > 0;
@@ -175,7 +172,7 @@ const EmailOTP = ({setOtpA,setDbd,email_id}) =>{
                         minLength={6}
                         placeholder='e.g. "123456" ' 
                         required 
-                    /><br></br>
+                    /><br></br><br></br>
                     <button 
                         type="submit" 
                         className="buttons" 
