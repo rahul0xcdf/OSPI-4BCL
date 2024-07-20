@@ -1,13 +1,19 @@
 .inputBox{
     height: 50px;
-    width: 500px;
+    width: 300px;
     font-size: 30px;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: midnightblue;
+    color: aliceblue;
+    border-radius: 5%;
 }
 
 .buttons{
     height: 50px;
     width: 200px;
     font-size: 30px;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: midnightblue;
+    color: aliceblue;
 }
+
