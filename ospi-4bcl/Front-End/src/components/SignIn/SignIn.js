@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+//import signInDiv from './signIn.css';
 //import SecQues from './SecQues';
 
 
@@ -69,25 +70,25 @@ const goSignUp = (event) =>{
 
 
   return (
-    <div>
-      <h1 align="center">Sign In</h1>
+    <div bgcolor = "white">
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <hr color="black"></hr>
-            <br></br><br></br>
+            <h1 align = "center">Sign-In</h1>
+            <hr color = "black"></hr>
+            <br></br>
             <h2 align="center">
         <form id="signInForm" onSubmit={handleSignIn}>
         
-          <label>Username:</label>
+          <label color = "black">Username:</label><br></br>
           <input type="text" className="inputBox" value={username} onChange={(e) => setUsernameCol(e.target.value)} maxLength={20} minLength={3} placeholder='eg "name123"' required />
           <br></br><br></br><br></br>
-          <label>Password:</label>
+          <label font = "black">Password:</label><br></br>
           <input type="password" className="inputBox" value={password} onChange={(e) => setPasswordCol(e.target.value)} maxLength={20} minLength={3} required autoComplete="off" />
         
           <br></br><br></br>
                     <button type="submit" className="buttons" style={buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave}>Sign-In</button>
                     {shouldDispClear && <div><br></br><br></br><button onClick={clrscr} className="buttons" style={buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button></div>}
       </form>
-      </h2><br></br><br></br>
+      </h2><br></br>
             <p align="center">Don't have an account? <form onSubmit = {goSignUp}><button type = "submit">Create an account</button></form></p>
             {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>

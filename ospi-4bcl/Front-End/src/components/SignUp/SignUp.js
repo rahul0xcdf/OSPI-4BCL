@@ -49,7 +49,7 @@ const SignUp = ({ setSignUp, setFfa }) => {
     let suggestedPassword = (psString);
 
     const handlePasswordFocus = () =>{
-        setPsString('Suggested: '+ generatePassword(12,true,true,true));
+        setPsString('Try: '+ generatePassword(12,true,true,true));
     }
     const handlePasswordBlur = () =>{
         setPsString('');
@@ -145,47 +145,48 @@ const SignUp = ({ setSignUp, setFfa }) => {
     };
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <h2>Sign Up</h2>
-                <form onSubmit={handleSubmit} className="form">
-                    <div className="left-side">
+        <div>
+            <header>
+                <h1 align = "center">Sign-Up</h1>
+                <hr color = "black"></hr><br></br>
+                <form onSubmit={handleSubmit} className="form"><h2 align = "center">
+                    <span className="left-side">
                         <label>
-                            Name:
-                            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}  maxLength={20} minLength={3} placeholder='e.g. "your-name123"' required/>
+                            Name:<br></br>
+                            <input className = "inputBox" type="text" value={username} onChange={(e) => setUsername(e.target.value)}  maxLength={20} minLength={3} placeholder='e.g. "your-name123"' required/>
                             {errors.name && <p className="error">{errors.name}</p>}
                         </label><br /><br />
                         <label>
-                            Email:
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} 
+                            Email:<br></br>
+                            <input className = "inputBox" type="email" value={email} onChange={(e) => setEmail(e.target.value)} 
                             maxLength={50} 
                             minLength={7}
-                            placeholder='e.g. your-name@abcd.com ' 
+                            placeholder='e.g. name@abcd.com ' 
                             required/>
                             {errors.email && <p className="error">{errors.email}</p>}
                         </label><br /><br />
                         <label>
-                            Phone Number:
-                            <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} 
+                            Phone Number:<br></br>
+                            <input className = "inputBox" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} 
                             maxLength={10} 
                             minLength={10}
-                            placeholder='e.g. "123456789" ' 
+                            placeholder='e.g. "0123456789" ' 
                             required/>
                             {errors.phone && <p className="error">{errors.phone}</p>}
                         </label><br /><br />
                         <label>
-                            Password:
-                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} maxLength={20} minLength={3} required autoComplete="off" placeholder= {suggestedPassword}
-                            onFocus={handlePasswordFocus} onBlur={handlePasswordBlur}/>
+                            Password:<br></br>
+                            <input className = "inputBox" type="password" value={password} onChange={(e) => setPassword(e.target.value)} maxLength={20} minLength={3} required autoComplete="off" placeholder= {suggestedPassword}
+                            onFocus={handlePasswordFocus} onBlur={handlePasswordBlur}/><br></br>
                             {errors.password && <p className="error">{errors.password}</p>}
                         </label>
-                    </div>
-                    <div className="right-side">
+                    </span>
+                    <span className="right-side"><br></br>
                         {Array.from({ length: 3 }, (_, i) => (
-                            <div key={i}>
+                            <span key={i}>
                                 <label>
                                     Select Question {i + 1}:
-                                    <select onChange={(e) => handleQuestionChange(i, e)} value={selectedQuestions[i]}>
+                                    <select className = "inputBox" onChange={(e) => handleQuestionChange(i, e)} value={selectedQuestions[i]}>
                                         <option value="" disabled>Select a question</option>
                                         {questions.map((question, index) => (
                                             <option key={index} value={question}>{question}</option>
@@ -194,13 +195,13 @@ const SignUp = ({ setSignUp, setFfa }) => {
                                 </label><br /><br />
                                 {selectedQuestions[i] && (
                                     <label>
-                                        Answer:
-                                        <input type="text" value={answers[i]} onChange={(e) => handleAnswerChange(i, e)} />
+                                        Answer:<br></br>
+                                        <input className = "inputBox" type="text" value={answers[i]} onChange={(e) => handleAnswerChange(i, e)} />
                                         {errors[`answer${i}`] && <p className="error">{errors[`answer${i}`]}</p>}
                                     </label>
                                 )}
                                 <br /><br />
-                            </div>
+                            </span>
                         ))}
                         <button type="submit" 
                         className="buttons" 
@@ -221,8 +222,8 @@ const SignUp = ({ setSignUp, setFfa }) => {
                             Clear
                         </button>
                     }</h2>
-                    </div>
-                </form>
+                    </span></h2>
+                </form> 
                 {submitted && (
                     <div className="success-message">
                         <h2>Data saved successfully!</h2>

@@ -49,6 +49,7 @@ const App = () => {
 
   return (
     <div>
+      
       {(ffa !== true && ctrF < 3) && <SignIn setSignUp = {setSignUp} setFfa={setFfa} setSfa={setSfa} setUsername = {setUsername} setPassword = {setPassword} setSQ1 = {setSQ1} setSQ2 = {setSQ2}
       setSQ3 = {setSQ3} setAns1 = {setAns1}  setAns2 = {setAns2} setAns3 = {setAns3} setphoneNo = {setphoneNo} setEmailId = {setEmailId} ctrF = {ctrF} setCtrF = {setCtrF}/>}
       {(sfa !== true && ctrS < 3) && <SecQues setSfa={setSfa} setTfa={setTfa} Q1 = {SQ1} SQ2 = {SQ2} SQ3 = {SQ3} ans1 = {ans1} ans2 = {ans2} ans3 = {ans3} ctrS = {ctrS} setCtrS = {setCtrS}/>}

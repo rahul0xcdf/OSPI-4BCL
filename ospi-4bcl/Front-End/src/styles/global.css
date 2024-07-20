@@ -2,7 +2,28 @@
 body{
     background-color: lightyellow;
     color: maroon;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     margin: 20px 10px 20px 10px;
     padding: 20px 10px 20px 10px;
+    background-image: url('../MyBckGrnd.gif');
+    background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+div{
+    background-color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    color:black;
+    font-size: large;
+    border-radius: 15%;
+    width: 450px;
+}
+
+label{
+    color:black;
 }
