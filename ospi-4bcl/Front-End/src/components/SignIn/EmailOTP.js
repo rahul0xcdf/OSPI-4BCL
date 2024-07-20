@@ -2,7 +2,7 @@ import React, { useState,useRef,useEffect } from 'react';
 import axios from 'axios';
 import "./signIn.css";
 
-const EmailOTP = ({setOtpA,setDbd,email_id}) =>{
+const EmailOTP = ({setOtpA,setSfa,email_id}) =>{
 
     const [otpCol, setOtpCol] = useState("");
     const [bdrRadius, setBdrRadius] = useState("0%");
@@ -19,7 +19,7 @@ const EmailOTP = ({setOtpA,setDbd,email_id}) =>{
         {
             alert("Verified successfully!");
             setOtpA(true);
-            setDbd(false);
+            setSfa(false);
         }
         else{
             alert("Verification unscuccessful! Wrong OTP entered.");

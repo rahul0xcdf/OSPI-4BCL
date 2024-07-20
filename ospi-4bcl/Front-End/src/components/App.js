@@ -50,11 +50,11 @@ const App = () => {
   return (
     <div>
       
-      {(ffa !== true && ctrF < 3) && <SignIn setSignUp = {setSignUp} setFfa={setFfa} setSfa={setSfa} setUsername = {setUsername} setPassword = {setPassword} setSQ1 = {setSQ1} setSQ2 = {setSQ2}
+      {(ffa !== true && ctrF < 3) && <SignIn setSignUp = {setSignUp} setFfa={setFfa} setTfa={setTfa} setUsername = {setUsername} setPassword = {setPassword} setSQ1 = {setSQ1} setSQ2 = {setSQ2}
       setSQ3 = {setSQ3} setAns1 = {setAns1}  setAns2 = {setAns2} setAns3 = {setAns3} setphoneNo = {setphoneNo} setEmailId = {setEmailId} ctrF = {ctrF} setCtrF = {setCtrF}/>}
-      {(sfa !== true && ctrS < 3) && <SecQues setSfa={setSfa} setTfa={setTfa} Q1 = {SQ1} SQ2 = {SQ2} SQ3 = {SQ3} ans1 = {ans1} ans2 = {ans2} ans3 = {ans3} ctrS = {ctrS} setCtrS = {setCtrS}/>}
+      {(sfa !== true && ctrS < 3) && <SecQues setSfa={setSfa} setDbd={setDbd} Q1 = {SQ1} SQ2 = {SQ2} SQ3 = {SQ3} ans1 = {ans1} ans2 = {ans2} ans3 = {ans3} ctrS = {ctrS} setCtrS = {setCtrS}/>}
       {(tfa !== true && ctrT < 3) && <PhoneNumVer setTfa={setTfa} setOtpA = {setOtpA} phone_no = {phone_no} ctrT = {ctrT} setCtrT = {setCtrT}/>}
-      {otpa !== true && <EmailOTP setOtpA = {setOtpA} setDbd = {setDbd} email_id = {email_id}/>}
+      {otpa !== true && <EmailOTP setOtpA = {setOtpA} setSfa = {setSfa} email_id = {email_id}/>}
       {dbd !== true && <Dashboard setDbd = {setDbd} setUpdt = {setUpdt} username = {username}/>}
       {updt !== true && <UpdatePswrd setDbd = {setDbd} setUpdt = {setUpdt} setPassword = {setPassword} password = {password}/>}
       {signUp !== true && <SignUp setSignUp = {setSignUp} setFfa={setFfa}/>}

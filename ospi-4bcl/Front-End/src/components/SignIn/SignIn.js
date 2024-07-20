@@ -8,7 +8,7 @@ import axios from 'axios';
 //import SecQues from './SecQues';
 
 
-const SignIn = ({ setSignUp, setFfa, setSfa, setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,setEmailId,ctrF,setCtrF }) => {
+const SignIn = ({ setSignUp, setFfa, setTfa, setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,setEmailId,ctrF,setCtrF }) => {
   const [username, setUsernameCol] = useState('');
   const [password, setPasswordCol] = useState('');
   const [error, setError] = useState('');
@@ -43,7 +43,7 @@ const goSignUp = (event) =>{
         console.log(response.data.SQ1);
         
         setFfa(true);
-        setSfa(false); 
+        setTfa(false); 
         
       }
       else{

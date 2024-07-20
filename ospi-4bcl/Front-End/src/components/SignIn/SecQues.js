@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from "react"
 import "./signIn.css"
 
-const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
+const SecQues = ({setSfa,setDbd,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
 
     const clrscr = ()=>{
         setSq1Col("");
@@ -16,7 +16,7 @@ const SecQues = ({setSfa,setTfa,SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
         if(sq1Col.toLowerCase() === ans1.toLowerCase() && sq2Col.toLowerCase() === ans2.toLowerCase() && sq3Col.toLowerCase() === ans3.toLowerCase())
         {
             setSfa(true);
-            setTfa(false);
+            setDbd(false);
         }
         else{
             alert("ERROR! Please enter correct answers.");
