@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "./SignUp.css";
+import { useNavigate } from 'react-router-dom';
 
-const SignUp = ({ setSignUp, setFfa }) => {
+
+const SignUp = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -13,6 +15,8 @@ const SignUp = ({ setSignUp, setFfa }) => {
     const [errors, setErrors] = useState({});
     const [bdrRadius, setBdrRadius] = useState("0%");
     const [bdrRadius2, setBdrRadius2] = useState("0%");
+
+    const navigate = useNavigate();
 
     
     function generatePassword(length = 12, includeUppercase = true, includeNumbers = true, includeSymbols = true) {
@@ -136,8 +140,7 @@ const SignUp = ({ setSignUp, setFfa }) => {
             .then(response => {
                 console.log(response.data);
                 setSubmitted(true);
-                setSignUp(true); // Set SignUp to false to hide the form
-                setFfa(false); // Set Ffa to true to show the next form
+                navigate.push('/SignIn');
             })
             .catch(error => {
                 console.error('There was an error saving the data!', error);

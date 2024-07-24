@@ -1,13 +1,16 @@
 import React, { useState,useRef,useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import "./signIn.css";
 
-const EmailOTP = ({setOtpA,setSfa,email_id}) =>{
+const PhoneOTP = ({phone_no}) =>{
 
     const [otpCol, setOtpCol] = useState("");
     const [bdrRadius, setBdrRadius] = useState("0%");
     const [bdrRadius2, setBdrRadius2] = useState("0%");
     const [bdrRadius3, setBdrRadius3] = useState("0%");
+
+    const navigate = useNavigate();
 
     const clrscr = () => {
         setOtpCol("");
@@ -18,12 +21,11 @@ const EmailOTP = ({setOtpA,setSfa,email_id}) =>{
         if(otpCol === otp1)
         {
             alert("Verified successfully!");
-            setOtpA(true);
-            setSfa(false);
+            navigate('/SecurityQuestions');
         }
         else{
             alert("Verification unscuccessful! Wrong OTP entered.");
-            setOtpA(true);
+            navigate('/SignIn');
         }
     }
     const OnEnter = () => {
@@ -48,15 +50,9 @@ const EmailOTP = ({setOtpA,setSfa,email_id}) =>{
     const onLeave3 = () => {
         setBdrRadius3("0%");
     };
-    var i = 0;
-    let maskedEmail = "";
-    for (let i = 0; i < email_id.length; i++) {
-        if (email_id[i] === "@") {
-            maskedEmail += email_id.substring(i);
-            break;
-        } else {
-            maskedEmail += (i % 2 !== 0) ? "X" : email_id[i];
-        }
+    let maskedNum = "XXXXXX";
+    for (let i = 1; i <= 4; i++) {
+        maskedNum += phone_no[i + 5];
     }
     const handleOTPcol = (event) => {
         setOtpCol(event.target.value);
@@ -153,14 +149,14 @@ const EmailOTP = ({setOtpA,setSfa,email_id}) =>{
     let shouldDispClear = otpCol.length > 0;
     return (
         <div>
-            <h1 align="center">Verification Using Email OTP</h1>
+            <h1 align="center">Verification Using Mobile OTP</h1>
             <hr color="black" />
             <br /><br /><br/>
             <h2  align = "center">
                 <font>Request resend OTP in {timer}</font><br></br><br></br>
                 <form onSubmit={OnSubmitFxn}>
                 <label>
-                        Enter the OTP sent to your registered email ID({maskedEmail}) :
+                        Enter the OTP sent to your registered mobile number({maskedNum}) :
                     </label>
                     <br /><br />
                     <input 
@@ -210,4 +206,4 @@ const EmailOTP = ({setOtpA,setSfa,email_id}) =>{
     );
 }
 
-export default EmailOTP;
+export default PhoneOTP;

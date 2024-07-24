@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './signIn.css';
+import { useNavigate } from 'react-router-dom';
 
-const PhoneNumVer = ({ setTfa, setOtpA, phone_no,ctrT,setCtrT }) => {
+const PhoneNumVer = ({phone_no,ctrT,setCtrT }) => {
     
     const [phNumCol, setPhNumCol] = useState("");
     
     const [bdrRadius, setBdrRadius] = useState("0%");
     const [bdrRadius2, setBdrRadius2] = useState("0%");
+
+    const navigate = useNavigate();
 
     const clrscr = () => {
         setPhNumCol("");
@@ -15,8 +18,7 @@ const PhoneNumVer = ({ setTfa, setOtpA, phone_no,ctrT,setCtrT }) => {
     const OnSubmitFxn = (event) => {
         event.preventDefault();
         if (phNumCol === phone_no) {
-            setTfa(true);
-            setOtpA(false);
+            navigate('/MobileNumberOTP');
         } else {
             if (ctrT < 3) {
                 alert("ERROR! Please enter correct mobile number.");
