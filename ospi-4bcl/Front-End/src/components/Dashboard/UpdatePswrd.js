@@ -1,14 +1,18 @@
 import React from 'react'
 import {useState} from "react"
 import "../SignIn/signIn.css"
+import { useNavigate } from 'react-router-dom';
 //change setPswrd to setPasswor
-const UpdatePswrd = ({setDbd,setUpdt,setPswrd,password})=>{
+const UpdatePswrd = ({setPswrd,password})=>{
 
     const [oldPswrd,setOldPswrd] = useState("")
     const [newPswrd1,setNewPswrd1] = useState("")
     const [newPswrd2,setNewPswrd2] = useState("")
     const [bdrRadius,setBdrRadius] = useState("0%");
     const [bdrRadius2,setBdrRadius2] = useState("0%");
+
+    const navigate = useNavigate();
+
     const handleOldPswrd = (event) =>{
         setOldPswrd(event.target.value)
     }
@@ -61,8 +65,7 @@ const UpdatePswrd = ({setDbd,setUpdt,setPswrd,password})=>{
         else{
             alert("Password change was unsuccessful! Please enter the correct current password.");
         }
-        setUpdt(true);
-        setDbd(false);
+        navigate('/Home');
     }
     const clrscr = ()=>{
         setOldPswrd("");

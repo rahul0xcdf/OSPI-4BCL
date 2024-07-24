@@ -4,14 +4,18 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import usnmIcon from "./UsnmIcon.png"
+import keyIcon from "./KeyIcon.jpg"
+import { useNavigate } from 'react-router-dom';
 //import signInDiv from './signIn.css';
 //import SecQues from './SecQues';
 
 
-const SignIn = ({ setSignUp, setFfa, setTfa, setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,setEmailId,ctrF,setCtrF }) => {
+const SignIn = ({ setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,setEmailId,ctrF,setCtrF }) => {
   const [username, setUsernameCol] = useState('');
   const [password, setPasswordCol] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
  
   const clrscr = () => {
     setUsernameCol("");
@@ -20,8 +24,7 @@ const SignIn = ({ setSignUp, setFfa, setTfa, setUsername, setPassword, setSQ1, s
 
 const goSignUp = (event) =>{
   event.preventDefault();
-  setFfa(true);
-  setSignUp(false);
+  navigate('/SignUp');
 } 
 
   const handleSignIn = async (e) => {
@@ -42,8 +45,7 @@ const goSignUp = (event) =>{
         setEmailId(response.data.email_id)
         console.log(response.data.SQ1);
         
-        setFfa(true);
-        setTfa(false); 
+        navigate('/MobileNumberVerification'); 
         
       }
       else{
@@ -72,18 +74,28 @@ const goSignUp = (event) =>{
   return (
     <div bgcolor = "white">
       {error && <p style={{ color: 'red' }}>{error}</p>}
-            <h1 align = "center">Sign-In</h1>
+            <h1 align = "center">
+              Sign-In</h1>
             <hr color = "black"></hr>
             <br></br>
             <h2 align="center">
         <form id="signInForm" onSubmit={handleSignIn}>
         
           <label color = "black">Username:</label><br></br>
+          <img 
+                src={usnmIcon} 
+                alt="User Icon" 
+                style={{ width: '50px', height: '50px', marginRight: '10px', verticalAlign: 'middle' }} 
+            /> 
           <input type="text" className="inputBox" value={username} onChange={(e) => setUsernameCol(e.target.value)} maxLength={20} minLength={3} placeholder='eg "name123"' required />
           <br></br><br></br><br></br>
           <label font = "black">Password:</label><br></br>
+          <img 
+                src={keyIcon} 
+                alt="User Icon" 
+                style={{ width: '50px', height: '50px', marginRight: '10px', verticalAlign: 'middle' }} 
+            />
           <input type="password" className="inputBox" value={password} onChange={(e) => setPasswordCol(e.target.value)} maxLength={20} minLength={3} required autoComplete="off" />
-        
           <br></br><br></br>
                     <button type="submit" className="buttons" style={buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave}>Sign-In</button>
                     {shouldDispClear && <div><br></br><br></br><button onClick={clrscr} className="buttons" style={buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button></div>}

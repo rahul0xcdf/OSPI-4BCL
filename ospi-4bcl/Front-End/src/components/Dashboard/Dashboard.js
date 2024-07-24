@@ -2,13 +2,18 @@ import React from 'react'
 import {useState} from "react"
 import "../SignIn/signIn.css"
 import userIcon from "./IconUserNew.png"
+import { useNavigate } from 'react-router-dom';
 
-const Dashboard = ({setDbd, setUpdt, userName}) =>{
+const Dashboard = ({userName}) =>{
 
     const [bdrRadius,setBdrRadius] = useState("0%");
     const [bdrRadius2,setBdrRadius2] = useState("0%");
     const [bdrRadius3,setBdrRadius3] = useState("0%");
     const [bdrRadius4,setBdrRadius4] = useState("0%");
+
+    const navigate = useNavigate();
+
+
     const buttonStyle = {
         borderRadius : bdrRadius,
         height: "80px",
@@ -65,7 +70,7 @@ const Dashboard = ({setDbd, setUpdt, userName}) =>{
         const decide = window.confirm("Are you sure you want to delete your account? By proceeding, you agree to all the terms and conditions.");
         if(decide){
             alert("Your account has successfully been deleted.");
-            setDbd(true);
+            navigate('/SignIn');
         }
         else{
             alert("Deletion Cancelled!");
@@ -75,15 +80,14 @@ const Dashboard = ({setDbd, setUpdt, userName}) =>{
         const decide = window.confirm("Are you sure you want to sign out?");
         if(decide){
             alert("You have been successfully signed out.");
-            setDbd(true);
+            navigate('/SignIn');
         }
         else{
             alert("Sign Out Cancelled!");
         }
     }
     const goUpdt = () =>{
-        setDbd(true);
-        setUpdt(false);
+        navigate('/Home/UpdatePassword');
     }
     return(
         <div>
