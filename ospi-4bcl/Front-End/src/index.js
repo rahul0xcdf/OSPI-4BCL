@@ -9,14 +9,16 @@ import UpdatePswrd from './components/Dashboard/UpdatePswrd';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
-  <div>
+  
     
-
-    <App />
+    <div>
+      
+        <App />
+      
     
         
-      
-   </div>
+      </div>
+   
   
 );
 
