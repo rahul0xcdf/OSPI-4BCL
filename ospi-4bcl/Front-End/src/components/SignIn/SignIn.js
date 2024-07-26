@@ -1,17 +1,15 @@
 
 
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import usnmIcon from "./UsnmIcon.png"
 import keyIcon from "./KeyIcon.jpg"
 import { useNavigate } from 'react-router-dom';
 //import signInDiv from './signIn.css';
-//import SecQues from './SecQues';
 
 
-const SignIn = ({ setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,setEmailId,ctrF,setCtrF }) => {
+
+const SignIn = ({ setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, setAns2, setAns3, setphoneNo,setEmailId, ctrF, setCtrF }) => {
   const [username, setUsernameCol] = useState('');
   const [password, setPasswordCol] = useState('');
   const [error, setError] = useState('');
@@ -20,7 +18,7 @@ const SignIn = ({ setUsername, setPassword, setSQ1, setSQ2, setSQ3, setAns1, set
   const clrscr = () => {
     setUsernameCol("");
     setPasswordCol("");
-}    
+  };
 
 const goSignUp = (event) =>{
   event.preventDefault();
@@ -30,7 +28,7 @@ const goSignUp = (event) =>{
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/login', { username, password });
+      const response = await axios.post('http://localhost:3001/login', { username, password });
       if(ctrF < 3){
       if (response.status===200) {
         setUsername(username);
@@ -60,16 +58,15 @@ const goSignUp = (event) =>{
   };
 
   const [bdrRadius, setBdrRadius] = useState("0%");
-    const buttonStyle = { borderRadius: bdrRadius };
-    const [bdrRadius2, setBdrRadius2] = useState("0%");
-    const buttonStyle2 = { borderRadius: bdrRadius2 };
-    const OnEnter2 = () => { setBdrRadius2("20%"); }
-    const onLeave2 = () => { setBdrRadius2("0%"); }
-    const OnEnter = () => { setBdrRadius("20%"); }
-    const onLeave = () => { setBdrRadius("0%"); }
+  const buttonStyle = { borderRadius: bdrRadius };
+  const [bdrRadius2, setBdrRadius2] = useState("0%");
+  const buttonStyle2 = { borderRadius: bdrRadius2 };
+  const OnEnter2 = () => { setBdrRadius2("20%"); };
+  const onLeave2 = () => { setBdrRadius2("0%"); };
+  const OnEnter = () => { setBdrRadius("20%"); };
+  const onLeave = () => { setBdrRadius("0%"); };
 
-    const shouldDispClear = (username.length > 0 || password.length > 0)
-
+  const shouldDispClear = (username.length > 0 || password.length > 0);
 
   return (
     <div bgcolor = "white">
@@ -108,7 +105,3 @@ const goSignUp = (event) =>{
 };
 
 export default SignIn;
-
-
-  
- 

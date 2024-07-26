@@ -1,19 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from "react-router-dom";
 import './styles/global.css';
+import { Auth0ProviderWithNavigate } from "./auth0-provider-with-navigate";
 import App from './components/App';
-//import reportWebVitals from './reportWebVitals';
+import UpdatePswrd from './components/Dashboard/UpdatePswrd';
 
-/*const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <div>
+    
+
     <App />
-  </div>
-); */
+    
+        
+      
+   </div>
+  
+);
 
-ReactDOM.render(<App />,document.getElementById("root"));
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-//reportWebVitals();

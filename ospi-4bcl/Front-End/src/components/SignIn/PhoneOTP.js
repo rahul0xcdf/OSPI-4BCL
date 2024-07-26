@@ -139,7 +139,7 @@ const PhoneOTP = ({phone_no}) =>{
     // button first we create function to be called
     // by the button
     //////////////////////////////////////////////////////
-    let shouldDispResend = (timer == "00:00:00");
+    let shouldDispResend = (timer === "00:00:00");
     const resendOtp = () =>{
         clearTimer(getDeadTime());
         clrscr();

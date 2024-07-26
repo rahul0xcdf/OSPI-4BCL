@@ -136,7 +136,7 @@ const SignUp = () => {
             email_id: email
         };
 
-        axios.post('http://localhost:3000/save', userDetails) // Ensure this URL is correct
+        axios.post('http://localhost:3001/save', userDetails) // Ensure this URL is correct
             .then(response => {
                 console.log(response.data);
                 setSubmitted(true);

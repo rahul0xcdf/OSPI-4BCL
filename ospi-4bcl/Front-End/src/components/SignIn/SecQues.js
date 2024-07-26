@@ -4,6 +4,7 @@ import "./signIn.css"
 import { useNavigate } from 'react-router-dom';
 
 
+
 const SecQues = ({SQ1,SQ2,SQ3,ans1,ans2,ans3,ctrS,setCtrS}) =>{
 
     const clrscr = ()=>{

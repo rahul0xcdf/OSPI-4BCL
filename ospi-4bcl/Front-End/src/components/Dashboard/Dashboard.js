@@ -3,8 +3,10 @@ import {useState} from "react"
 import "../SignIn/signIn.css"
 import userIcon from "./IconUserNew.png"
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Dashboard = ({userName}) =>{
+    const { loginWithRedirect } = useAuth0();
 
     const [bdrRadius,setBdrRadius] = useState("0%");
     const [bdrRadius2,setBdrRadius2] = useState("0%");
@@ -86,9 +88,14 @@ const Dashboard = ({userName}) =>{
             alert("Sign Out Cancelled!");
         }
     }
-    const goUpdt = () =>{
-        navigate('/Home/UpdatePassword');
-    }
+    const goUpdt = async () => {
+        await loginWithRedirect({
+          appState: {
+            returnTo: "/Home/UpdatePassword",
+          },
+        });
+      };
+     
     return(
         <div>
             <h1 align="center"><img 
