@@ -140,7 +140,7 @@ const SignUp = () => {
             .then(response => {
                 console.log(response.data);
                 setSubmitted(true);
-                navigate.push('/SignIn');
+                navigate('/SignIn');
             })
             .catch(error => {
                 console.error('There was an error saving the data!', error);
