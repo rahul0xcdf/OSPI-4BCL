@@ -8,24 +8,13 @@ import PhoneOTP from "./SignIn/PhoneOTP";
 import SignUp from "./SignUp/SignUp";
 import Error from "./Error";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
 
 const App = () => {
 
 
-  //sign up values
-  /*
-  const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [passwrd, setPasswrd] = useState('');//changed variable to not have conflicts
-    const [selectedQuestions, setSelectedQuestions] = useState(['', '', '']);
-    const [answers, setAnswers] = useState(['', '', '']);
-    const [submitted, setSubmitted] = useState(false);
-    const [errors, setErrors] = useState({});
-    */
-    //sign up details
-
-  ;
+  
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [SQ1, setSQ1] = useState("");
@@ -50,7 +39,12 @@ const App = () => {
       <Route path = "/SecurityQuestions" element = {((ctrS < 3 && username !== "") && <SecQues Q1 = {SQ1} SQ2 = {SQ2} SQ3 = {SQ3} ans1 = {ans1} ans2 = {ans2} ans3 = {ans3} ctrS = {ctrS} setCtrS = {setCtrS}/>)|| ((username === "" || ctrS >= 3) && <Error />)}/>
       <Route path = "/MobileNumberVerification" element = {((ctrT < 3 && username !== "") && <PhoneNumVer phone_no = {phone_no} ctrT = {ctrT} setCtrT = {setCtrT}/>) || ((username === "" || ctrT >= 3) && <Error />)}/>
       <Route path = "/MobileNumberOTP" element = {(username !== "" && <PhoneOTP phone_no = {phone_no}/>) || (username === "" && <Error />)}/>
-      <Route path = "/Home" element = {(username !== "" && <Dashboard username = {username}/>) || (username === "" && <Error />)}/>
+      <Route 
+            path="/Home" 
+            element={<Auth0ProviderWithNavigate>
+              {username !== "" ? <Dashboard username={username} /> : <Error />}
+            </Auth0ProviderWithNavigate>}
+          />
       <Route path = "/Home/UpdatePassword" element = {(username !== "" && <UpdatePswrd setPassword = {setPassword} password = {password}/>) || (username === "" && <Error />)}/>
       <Route path = "/SignUp" element = {<SignUp/>}/>
       </Routes>

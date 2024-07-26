@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './signIn.css';
 import { useNavigate } from 'react-router-dom';
 
-const PhoneNumVer = ({phone_no,ctrT,setCtrT }) => {
-    
+
+const PhoneNumVer = ({ setDbd,setTfa, phone_no,ctrT,setCtrT }) => {
     const [phNumCol, setPhNumCol] = useState("");
     
     const [bdrRadius, setBdrRadius] = useState("0%");
