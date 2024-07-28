@@ -6,9 +6,9 @@ const Error = () =>{
     return (
         <div>
             <h1 align = "center" color = "red">
-                404<br></br>Page not found!
+                Page not found!
                 <br></br>
-                <img src = {errorGIF} alt="404 Error GIF"/>
+                <img src = {errorGIF} alt="404 Error GIF" style = {{width: '400px', height: '400px'}}/>
             </h1>
         </div>
     );
