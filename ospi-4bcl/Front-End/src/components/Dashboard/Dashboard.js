@@ -5,7 +5,7 @@ import userIcon from "./IconUserNew.png"
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 
-const Dashboard = ({userName,setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setphoneNo,setEmailId}) =>{
+const Dashboard = ({username,setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setphoneNo,setEmailId}) =>{
     const { loginWithRedirect } = useAuth0();
 
     const [bdrRadius,setBdrRadius] = useState("0%");
@@ -123,7 +123,7 @@ const Dashboard = ({userName,setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns
                 alt="User Icon" 
                 style={{ width: '50px', height: '50px', marginRight: '10px', verticalAlign: 'middle' }} 
             /> 
-            Welcome back,<br></br> {userName} !
+            Welcome back,<br></br> {username} !
         </h1>
             <hr color="black"></hr>
             
