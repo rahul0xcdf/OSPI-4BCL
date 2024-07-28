@@ -40,7 +40,8 @@ const App = () => {
       <Route path = "/MobileNumberVerification" element = {((ctrT < 3 && username !== "") && <PhoneNumVer phone_no = {phone_no} ctrT = {ctrT} setCtrT = {setCtrT}/>) || ((username === "" || ctrT >= 3) && <Error />)}/>
       <Route path = "/MobileNumberOTP" element = {(username !== "" && <PhoneOTP phone_no = {phone_no}/>) || (username === "" && <Error />)}/>
       <Route path="/Home" element={
-              (username !== "" ? <Dashboard username={username} /> : <Error />)
+              (username !== "" ? <Dashboard username={username} setUsername = {setUsername} setPassword = {setPassword} setSQ1 = {setSQ1} setSQ2 = {setSQ2}
+                setSQ3 = {setSQ3} setAns1 = {setAns1}  setAns2 = {setAns2} setAns3 = {setAns3} setphoneNo = {setphoneNo} setEmailId = {setEmailId}/> : <Error />)
             }/>
       <Route path = "/Home/UpdatePassword" element = {(username !== "" && <UpdatePswrd setPassword = {setPassword} password = {password}/>) || (username === "" && <Error />)}/>
       <Route path = "/SignUp" element = {<SignUp/>}/>

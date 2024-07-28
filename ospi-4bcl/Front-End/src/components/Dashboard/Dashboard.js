@@ -5,7 +5,7 @@ import userIcon from "./IconUserNew.png"
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 
-const Dashboard = ({userName}) =>{
+const Dashboard = ({userName,setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setphoneNo,setEmailId}) =>{
     const { loginWithRedirect } = useAuth0();
 
     const [bdrRadius,setBdrRadius] = useState("0%");
@@ -72,6 +72,16 @@ const Dashboard = ({userName}) =>{
         const decide = window.confirm("Are you sure you want to delete your account? By proceeding, you agree to all the terms and conditions.");
         if(decide){
             alert("Your account has successfully been deleted.");
+            setUsername("");
+            setPassword("");
+            setSQ1("");
+            setSQ2("");
+            setSQ3("");
+            setAns1("");
+            setAns2("");
+            setAns3("");
+            setphoneNo("");
+            setEmailId("");
             navigate('/SignIn');
         }
         else{
@@ -82,6 +92,16 @@ const Dashboard = ({userName}) =>{
         const decide = window.confirm("Are you sure you want to sign out?");
         if(decide){
             alert("You have been successfully signed out.");
+            setUsername("");
+            setPassword("");
+            setSQ1("");
+            setSQ2("");
+            setSQ3("");
+            setAns1("");
+            setAns2("");
+            setAns3("");
+            setphoneNo("");
+            setEmailId("");
             navigate('/SignIn');
         }
         else{
