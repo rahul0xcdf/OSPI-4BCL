@@ -7,7 +7,7 @@ import UpdatePswrd from "./Dashboard/UpdatePswrd";
 //import PhoneOTP from "./SignIn/PhoneOTP";
 import SignUp from "./SignUp/SignUp";
 import Error from "./Error";
-import { Otp_page as PhoneOTP } from "./otp_page"
+import PhoneOTP from "./otp_page"
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
 
