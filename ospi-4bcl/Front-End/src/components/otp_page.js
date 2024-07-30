@@ -9,7 +9,7 @@ import { auth } from "./firebase.config"
 import { Toaster, toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
 
-const Otp_page = (phone_no) => {
+const PhoneOTP = (phone_no) => {
 	const [OTP, setOTP] =  useState("");
 	const navigate = useNavigate();
 	const [showph, setShowph] = useState(false);
@@ -53,4 +53,4 @@ try{
 		</>
 }
 
-export default Otp_page;
+export default PhoneOTP;
