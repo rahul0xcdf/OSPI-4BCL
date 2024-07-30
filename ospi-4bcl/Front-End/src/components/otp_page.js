@@ -7,9 +7,11 @@ import "react-phone-input-2/lib/style.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "./firebase.config"
 import { Toaster, toast } from "react-hot-toast"
+import { useNavigate } from "react-router-dom";
 
 const Otp_page = (phone_no) => {
 	const [OTP, setOTP] =  useState("");
+	const navigate = useNavigate();
 	const [showph, setShowph] = useState(false);
 	//const [phone, setPhone] = useState();
 	const [user, setUser] = useState(null);
