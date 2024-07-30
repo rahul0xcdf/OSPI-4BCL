@@ -10,17 +10,17 @@ import { Toaster, toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
 import "./SignIn/signIn.css";
 
-const PhoneOTP = (phone_no) => {
+const PhoneOTP = () => {
 	const [OTP, setOTP] =  useState("");
 	const navigate = useNavigate();
 	const [showph, setShowph] = useState(false);
-	//const [phone, setPhone] = useState();
+	const [phone_no, setPhone] = useState();
 	const [user, setUser] = useState(null);
 	const [confirmationResult, setConfirmationResult] = useState(null);
 	const sendOtp = async() => {
 try{
 	const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {});
-	const confirmation = signInWithPhoneNumber(auth, "+"+phone_no, recaptcha)
+	const confirmation = signInWithPhoneNumber(auth, phone_no, recaptcha)
 	setConfirmationResult(confirmation);	
 	}catch(err){
 		console.error(err)}
