@@ -13,24 +13,13 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const port = 3001;
 
-//const appOrigin =`http://localhost:3000`;
-
-/*
-if (
-  !authConfig.domain ||
-  !authConfig.audience ||
-  authConfig.audience === "http://localhost:3000/authn"
-) {
-  console.log(
-    "Exiting: Please make sure that auth_config.json is in place and populated with valid domain and audience values"
-  );
-
-  process.exit();
-}
-*/
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use(bodyParser.json());
-app.use(cors());
 app.use(morgan('dev'));
 app.use(helmet());
 
@@ -52,7 +41,7 @@ app.use(helmet({
 
 
 
-
+/*
 const checkJwt = auth({
   audience: 'http://localhost:3000/authn',
   issuerBaseURL: 'https://dev-e2oe1td2rrqxwxie.jp.auth0.com/',
@@ -66,7 +55,7 @@ app.get("/api/external", checkJwt, (req, res) => {
 });
 
 
-
+*/
 
 
 MongoClient.connect(url)
