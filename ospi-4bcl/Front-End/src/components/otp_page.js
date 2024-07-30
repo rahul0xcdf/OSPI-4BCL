@@ -14,13 +14,13 @@ const PhoneOTP = () => {
 	const [OTP, setOTP] =  useState("");
 	const navigate = useNavigate();
 	const [showph, setShowph] = useState(true);
-	const [phone_no, setPhone] = useState();
+	const [phone, setPhone] = useState();
 	const [user, setUser] = useState(null);
 	const [confirmationResult, setConfirmationResult] = useState(null);
 	const sendOtp = async() => {
 try{
 	const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {});
-	const confirmation = signInWithPhoneNumber(auth, phone_no, recaptcha)
+	const confirmation = signInWithPhoneNumber(auth, phone, recaptcha)
 	setConfirmationResult(confirmation);	
 	}catch(err){
 		console.error(err)}
@@ -35,11 +35,11 @@ try{
       toast.error('Failed to verify OTP');
     }
   };	
-	return <div style={{ backgroundColor: 'white', padding: '20px', textAlign: 'center' }}>
+	return <>
 		{ showph &&(
 		<div>
 
-		<PhoneInput country = {"in"} value = {phone_no} onChange = {(phone_no) =>setPhone("+"+phone_no)} />
+		<PhoneInput country = {"in"} value = {phone} onChange = {(phone) =>setPhone("+"+phone)} />
 		</div>)
 }		
 		<div><Toaster toastOptions = {{duration: 4000}} /></div>
@@ -51,7 +51,7 @@ try{
 		</div>
 
 		
-			</div>
+		</>
 }
 
 export default PhoneOTP;
