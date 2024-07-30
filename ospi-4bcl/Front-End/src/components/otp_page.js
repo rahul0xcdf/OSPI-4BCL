@@ -35,7 +35,7 @@ try{
       toast.error('Failed to verify OTP');
     }
   };	
-	return <div>
+	return <div style={{ backgroundColor: 'white', padding: '20px', textAlign: 'center' }}>
 		{ showph &&(
 		<div>
 
