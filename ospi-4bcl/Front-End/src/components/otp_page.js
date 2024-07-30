@@ -8,16 +8,16 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "./firebase.config"
 import { Toaster, toast } from "react-hot-toast"
 
-const Otp_page = () => {
+const Otp_page = (phone_no) => {
 	const [OTP, setOTP] =  useState("");
-	const [showph, setShowph] = useState(true);
-	const [phone, setPhone] = useState();
+	const [showph, setShowph] = useState(false);
+	//const [phone, setPhone] = useState();
 	const [user, setUser] = useState(null);
 	const [confirmationResult, setConfirmationResult] = useState(null);
 	const sendOtp = async() => {
 try{
 	const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {});
-	const confirmation = signInWithPhoneNumber(auth, phone, recaptcha)
+	const confirmation = signInWithPhoneNumber(auth, "+"+phone_no, recaptcha)
 	setConfirmationResult(confirmation);	
 	}catch(err){
 		console.error(err)}
@@ -35,7 +35,7 @@ try{
 		{ showph &&(
 		<div>
 
-		<PhoneInput country = {"in"} value = {phone} onChange = {(phone) =>setPhone("+"+phone)} />
+		<PhoneInput country = {"in"} value = {phone_no} onChange = {(phone_no) =>setPhone("+"+phone_no)} />
 		</div>)
 }		
 		<div><Toaster toastOptions = {{duration: 4000}} /></div>
