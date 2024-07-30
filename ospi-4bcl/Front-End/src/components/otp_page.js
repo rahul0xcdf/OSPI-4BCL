@@ -8,7 +8,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "./firebase.config"
 import { Toaster, toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
-import "./signIn.css";
+import "./SignIn/signIn.css";
 
 const PhoneOTP = (phone_no) => {
 	const [OTP, setOTP] =  useState("");
