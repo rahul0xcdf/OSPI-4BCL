@@ -29,7 +29,7 @@ try{
  const verifyOtp = async () => {
     try {
       console.log(confirmationResult)
-      navigate('/SignIn');
+      navigate('/Home');
     } catch (err) {
       console.error('Error verifying OTP:', err);
       toast.error('Failed to verify OTP');
