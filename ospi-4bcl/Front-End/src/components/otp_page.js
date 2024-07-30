@@ -13,7 +13,7 @@ import "./SignIn/signIn.css";
 const PhoneOTP = () => {
 	const [OTP, setOTP] =  useState("");
 	const navigate = useNavigate();
-	const [showph, setShowph] = useState(false);
+	const [showph, setShowph] = useState(true);
 	const [phone_no, setPhone] = useState();
 	const [user, setUser] = useState(null);
 	const [confirmationResult, setConfirmationResult] = useState(null);
@@ -35,7 +35,7 @@ try{
       toast.error('Failed to verify OTP');
     }
   };	
-	return <>
+	return <div>
 		{ showph &&(
 		<div>
 
@@ -51,7 +51,7 @@ try{
 		</div>
 
 		
-		</>
+			</div>
 }
 
 export default PhoneOTP;
