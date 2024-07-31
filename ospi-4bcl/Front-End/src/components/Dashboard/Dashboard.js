@@ -69,24 +69,7 @@ const Dashboard = ({username,setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns
         setBdrRadius4("0%");
     }
     const DelAccount = ()=> {
-        const decide = window.confirm("Are you sure you want to delete your account? By proceeding, you agree to all the terms and conditions.");
-        if(decide){
-            alert("Your account has successfully been deleted.");
-            setUsername("");
-            setPassword("");
-            setSQ1("");
-            setSQ2("");
-            setSQ3("");
-            setAns1("");
-            setAns2("");
-            setAns3("");
-            setphoneNo("");
-            setEmailId("");
-            navigate('/SignIn');
-        }
-        else{
-            alert("Deletion Cancelled!");
-        }
+        navigate("/Home/DeleteAccount")
     }
     const SignOut = ()=> {
         const decide = window.confirm("Are you sure you want to sign out?");
