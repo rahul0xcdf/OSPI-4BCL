@@ -30,7 +30,7 @@ const PhoneOTP = ({phone_no}) =>{
     const sendOtp = async() => {
 try{
 	const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {});
-	const confirmation = signInWithPhoneNumber(auth,"+"+ phone, recaptcha)
+	const confirmation = signInWithPhoneNumber(auth,"+"+ phone_no, recaptcha)
 	setConfirmationResult(confirmation);	
 	}catch(err){
 		console.error(err)}
@@ -165,7 +165,6 @@ const verifyOtp = async () => {
         //resendOtp();
     }
     let shouldDispClear = otpCol.length > 0;
-	sendOtp();
     return (
         <div>
             <h1 align="center">Verification Using Mobile OTP</h1>
@@ -189,9 +188,18 @@ const verifyOtp = async () => {
                         required 
                     /><br></br><br></br>
 			<div id = "recaptcha-container"></div>
+		    <button 
+                        type="submit" 
+			onClick = {sendOtp}
+                        className="buttons" 
+                        style={{ borderRadius: bdrRadius }} 
+                        onMouseEnter={OnEnter} 
+                        onMouseLeave={onLeave}
+                    >
+                        Send
+                    </button>
                     <button 
                         type="submit" 
-			onClick = {verifyOtp}
                         className="buttons" 
                         style={{ borderRadius: bdrRadius }} 
                         onMouseEnter={OnEnter} 
