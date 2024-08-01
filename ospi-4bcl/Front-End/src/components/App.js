@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from 'react';
 import SignIn from "./SignIn/SignIn";
 import SecQues from "./SignIn/SecQues";
-//import PhoneNumVer from "./SignIn/PhoneNumVer";
+import PhoneNumVer from "./SignIn/PhoneNumVer";
 import Dashboard from "./Dashboard/Dashboard";
 import UpdatePswrd from "./Dashboard/UpdatePswrd";
+import DeleteAccount from "./Dashboard/DeleteAccount";
 //import PhoneOTP from "./SignIn/PhoneOTP";
 import SignUp from "./SignUp/SignUp";
 import Error from "./Error";
