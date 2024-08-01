@@ -2,7 +2,7 @@ import React, { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../SignIn/signIn.css";
 import axios from 'axios';
-import { useAuth0 } from '@auth0/auth0-react';
+
 
 
 
@@ -16,19 +16,10 @@ const UpdatePswrd = ({ setPassword, password }) => {
 
 
 
-    //const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    
     const navigate = useNavigate();
 
-/*
-    useEffect(() => {
-        if (!isLoading) {
-            if (!isAuthenticated) {
-                loginWithRedirect(); // Redirects to Auth0 login page
-            }
-        }
-    }, [isAuthenticated, isLoading, loginWithRedirect]);
-*/
-    const handleOldPswrd = (event) => {
+  const handleOldPswrd = (event) => {
         setOldPswrd(event.target.value);
     };
     const handleNewPswrd1 = (event) => {
