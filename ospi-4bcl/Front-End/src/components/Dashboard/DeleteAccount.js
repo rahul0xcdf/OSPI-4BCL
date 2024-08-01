@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "../SignIn/signIn.css";
 import axios from 'axios';
 
-const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setphoneNo,setEmailId,password}) =>{
+const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setphoneNo,setEmailId,password,email_id}) =>{
 
     const [Pswrd, setPswrd] = useState("");
     const [bdrRadius, setBdrRadius] = useState("0%");
@@ -46,6 +46,11 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
             const decide = window.confirm("Are you sure you want to delete your account? By proceeding, you agree to all the terms and conditions.");
         if(decide){
             alert("Your account has successfully been deleted.");
+            await axios.post('http://localhost:3001/send-email', {
+                email: email_id, 
+                subject: 'Account Deletion Confirmation',
+                message: 'Your account has been successfully deleted.',
+              });
             setUsername("");
             setPassword("");
             setSQ1("");
@@ -69,6 +74,13 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
          else{
             alert("Deletion Cancelled! You have been logged out, due to security reasons.");
             setCtrW(0);
+            await axios.post('http://localhost:3001/send-email', {
+                email: email_id, 
+                subject: 'Account Deletion Attempt',
+                message: 'Your account has been attempted to be deleted. If it was not you, please report the incident to us',
+              });
+        
+        
             setUsername("");
             setPassword("");
             setSQ1("");
@@ -95,7 +107,7 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
             <br /><br />
             <h2 align="center">
             <form onSubmit={DelAcc}>
-            <label>Please enter your current password:</label><br />
+            <label>Please enter your current password:</label><br /><br /><br />
                     <input
                         type="password"
                         className="inputBox"
@@ -105,7 +117,7 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
                         minLength={3}
                         required
                         autoComplete="off"
-                    /> <br /><br />
+                    /> <br /><br /><br />
                     <button
                         type="submit"
                         className="buttons"
@@ -113,8 +125,8 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
                         onMouseEnter={OnEnter}
                         onMouseLeave={onLeave}
                     >
-                        Change Password
-                    </button>
+                        Delete Account
+                    </button> <br /><br /> <br />
                     {shouldDispClear && (
                         <div>
                             <br />

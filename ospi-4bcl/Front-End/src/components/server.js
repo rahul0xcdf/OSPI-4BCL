@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const { auth } = require('express-oauth2-jwt-bearer');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 
 
@@ -245,4 +246,29 @@ app.get('/', (req, res) => {
 });
 
 
+// New route for sending emails
+app.post('/send-email', async (req, res) => {
+  const { email, subject, message } = req.body;
 
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'abc@gmail.com', 
+      pass: 'abc', 
+    },
+  });
+
+  let mailOptions = {
+    from: 'abc@gmail.com',
+    to: email,
+    subject: subject,
+    text: message,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return res.status(500).send(error.toString());
+    }
+    res.status(200).send('Email sent: ' + info.response);
+  });
+});
