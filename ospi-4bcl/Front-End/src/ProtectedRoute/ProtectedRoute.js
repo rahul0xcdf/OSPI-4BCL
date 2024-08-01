@@ -1,0 +1,10 @@
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+
+export default function ProtectedRoute({ user, children }) {
+    if (!user) {
+        return <Navigate to="/Home" replace />;
+    }
+    return children;
+}
+//replace this with uodated password file route
