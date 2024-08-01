@@ -21,11 +21,15 @@ const PhoneOTP = ({ phone_no }) => {
     const clrscr = () => {
         setOTP("");
     };
+
     const sendOtp = async() => {
 try{
 	const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {});
-	const confirmation = signInWithPhoneNumber(auth,"+"+ phone_no, recaptcha)
+    const formatted_num=`+91${phone_no}`;
+    console.log('Formatted Phone Number:', formatted_num);
+	const confirmation = await signInWithPhoneNumber(auth,formatted_num, recaptcha);
 	setConfirmationResult(confirmation);	
+    toast.success('OTP sent successfully');
 	}catch(err){
 		console.error(err)}
 }
