@@ -21,16 +21,14 @@ const PhoneOTP = ({ phone_no }) => {
     const clrscr = () => {
         setOTP("");
     };
-
-    const sendOtp = async () => {
-        try {
-            const recaptcha = new RecaptchaVerifier('recaptcha-container', {}, auth);
-            const confirmation = await signInWithPhoneNumber(auth, "+" + phone, recaptcha);
-            setConfirmationResult(confirmation);
-        } catch (err) {
-            console.error(err);
-        }
-    };
+    const sendOtp = async() => {
+try{
+	const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {});
+	const confirmation = signInWithPhoneNumber(auth,"+"+ phone_no, recaptcha)
+	setConfirmationResult(confirmation);	
+	}catch(err){
+		console.error(err)}
+}
 
     const verifyOtp = async (e) => {
         e.preventDefault(); // Prevent form submission default behavior
@@ -115,7 +113,6 @@ const PhoneOTP = ({ phone_no }) => {
     };
     
     let shouldDispClear = otpCol.length > 0;
-
     return (
         <div>
             <h1 align="center">Verification Using Mobile OTP</h1>
@@ -135,15 +132,25 @@ const PhoneOTP = ({ phone_no }) => {
                         onChange={(e) => setOTP(e.target.value)} // Corrected onChange handler
                         maxLength={6}
                         minLength={6}
-                        placeholder='e.g. "123456"'
-                        required
-                    /><br /><br />
-                    <div id="recaptcha-container"></div>
-                    <button
-                        type="submit"
-                        className="buttons"
-                        style={{ borderRadius: bdrRadius }}
-                        onMouseEnter={OnEnter}
+                        placeholder='e.g. "123456" ' 
+                        required 
+                    /><br></br><br></br>
+			<div id = "recaptcha-container"></div>
+		    <button 
+                        type="submit" 
+			onClick = {sendOtp}
+                        className="buttons" 
+                        style={{ borderRadius: bdrRadius }} 
+                        onMouseEnter={OnEnter} 
+                        onMouseLeave={onLeave}
+                    >
+                        Send
+                    </button>
+                    <button 
+                        type="submit" 
+                        className="buttons" 
+                        style={{ borderRadius: bdrRadius }} 
+                        onMouseEnter={OnEnter} 
                         onMouseLeave={onLeave}
                     >
                         Verify
