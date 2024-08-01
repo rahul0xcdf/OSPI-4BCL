@@ -43,7 +43,7 @@ const goSignUp = (event) =>{
         setEmailId(response.data.email_id)
         console.log(response.data.SQ1);
         
-        navigate('/MobileNumberOTP'); 
+        navigate('/MobileNumberVerification'); 
         
       }
       else{
