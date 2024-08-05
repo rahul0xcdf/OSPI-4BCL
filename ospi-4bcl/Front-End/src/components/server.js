@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const { auth } = require('express-oauth2-jwt-bearer');
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcryptjs');
 
 
 
@@ -23,7 +23,6 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(helmet());
 
-//app.use(cors({ origin: appOrigin }));
 
 const url = 'mongodb://127.0.0.1:27017/';
 const databasename = 'users';
@@ -38,25 +37,6 @@ app.use(helmet({
   xssFilter: true,
   hidePoweredBy: true,
 }));
-
-
-
-/*
-const checkJwt = auth({
-  audience: 'http://localhost:3000/authn',
-  issuerBaseURL: 'https://dev-e2oe1td2rrqxwxie.jp.auth0.com/',
-  algorithms: ["RS256"],
-});
-
-app.get("/api/external", checkJwt, (req, res) => {
-  res.send({
-    msg: "Your access token was successfully validated!",
-  });
-});
-
-
-*/
-
 
 MongoClient.connect(url)
   .then((client) => {
@@ -73,10 +53,7 @@ MongoClient.connect(url)
   });
 
 
-
   
-  
-// Find user function
 const findUser = async (username, password) => {
   const query = { username, password };
   try {
@@ -87,6 +64,7 @@ const findUser = async (username, password) => {
     return null;
   }
 };
+
 
 // Save user route
 app.post('/save', async (req, res) => {
@@ -195,6 +173,42 @@ app.put('/updatePassword', async (req, res) => {
   } catch (error) {
     console.error(`Error occurred while updating the password: ${error.message}`);
     res.status(500).send({ message: 'An error occurred while updating the password' });
+  }
+});
+
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
+
+
+// Delete Account Endpoint
+app.post('/deleteAccount', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    console.log(`Attempting to delete account for user: ${username}`);
+
+    const user = await collection.findOne({ username });
+    if (!user) {
+      console.log('User not found');
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    if (user.password !== password) {
+      console.log('Incorrect password');
+      return res.status(401).send({ message: 'Incorrect password' });
+    }
+
+    const result = await collection.deleteOne({ username });
+    console.log(`Delete result: ${JSON.stringify(result)}`);
+
+    if (result.deletedCount === 1) {
+      res.status(200).send({ message: 'User deleted successfully' });
+    } else {
+      res.status(500).send({ message: 'Failed to delete user' });
+    }
+  } catch (error) {
+    console.error(`Error occurred while deleting the user: ${error.message}`);
+    res.status(500).send({ message: 'An error occurred while deleting the user' });
   }
 });
 

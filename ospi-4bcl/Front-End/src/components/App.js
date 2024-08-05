@@ -46,8 +46,26 @@ const App = () => {
                 setSQ3 = {setSQ3} setAns1 = {setAns1}  setAns2 = {setAns2} setAns3 = {setAns3} setphoneNo = {setphoneNo} setEmailId = {setEmailId}/> : <Error />)
             }/>
       <Route path = "/Home/UpdatePassword" element = {( <UpdatePswrd setPassword = {setPassword} password = {password}/>) || (username === "" && <Error />)}/>
-      <Route path = "/Home/DeleteAccount" element = {( <DeleteAccount setUsername = {setUsername} setPassword = {setPassword} setSQ1 = {setSQ1} setSQ2 = {setSQ2}
-      setSQ3 = {setSQ3} setAns1 = {setAns1}  setAns2 = {setAns2} setAns3 = {setAns3} setphoneNo = {setphoneNo} setEmailId = {setEmailId} password = {password}/>) || (username === "" && <Error />)}/>
+      <Route
+  path="/Home/DeleteAccount"
+  element={
+    <DeleteAccount
+      setUsername={setUsername}
+      setPassword={setPassword}
+      setSQ1={setSQ1}
+      setSQ2={setSQ2}
+      setSQ3={setSQ3}
+      setAns1={setAns1}
+      setAns2={setAns2}
+      setAns3={setAns3}
+      setphoneNo={setphoneNo}
+      setEmailId={setEmailId}
+      username={username}
+      password={password}
+    />
+  }
+/>
+
       <Route path = "/SignUp" element = {<SignUp/>}/>
       </Routes>
   
