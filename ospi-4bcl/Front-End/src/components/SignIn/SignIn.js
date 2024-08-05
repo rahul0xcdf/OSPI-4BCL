@@ -98,7 +98,7 @@ const goSignUp = (event) =>{
                     {shouldDispClear && <div><br></br><br></br><button onClick={clrscr} className="buttons" style={buttonStyle2} onMouseEnter={OnEnter2} onMouseLeave={onLeave2}>Clear</button></div>}
       </form>
       </h2><br></br>
-            <p align="center">Don't have an account? <form onSubmit = {goSignUp}><button type = "submit">Create an account</button></form></p>
+            <p align="center">Don't have an account? </p><form onSubmit = {goSignUp}><button type = "submit">Create an account</button></form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );

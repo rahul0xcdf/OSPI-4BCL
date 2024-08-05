@@ -7,6 +7,8 @@ const helmet = require("helmet");
 const { auth } = require('express-oauth2-jwt-bearer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+
 
 
 
@@ -14,7 +16,7 @@ const app = express();
 const port = 3001;
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from this origin
+  origin: 'http://127.0.0.1:3000', // Allow requests from this origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -141,6 +143,48 @@ app.post('/getSecurityQuestions', async (req, res) => {
     console.error('Error fetching security questions:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
+});
+
+
+const authenticateToken = async (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+
+  try {
+      const decodedToken = jwt.decode(token, { complete: true });
+      const kid = decodedToken.header.kid;
+      const clientId = decodedToken.payload.client_id;
+
+      if (clientId !== VALID_CLIENT_ID) {
+          return res.sendStatus(401);
+      }
+
+      const client = jwksClient({
+          jwksUri: 'https://auth.onzauth.com/.well-known/jwks.json',
+          requestHeaders: {}, // Optional
+          timeout: 30000 // Defaults to 30s
+      });
+
+      const key = await client.getSigningKey(kid);
+      const signingKey = key.getPublicKey();
+
+      jwt.verify(token, signingKey, (err, user) => {
+          if (err) return res.sendStatus(403);
+          req.user = user;
+          next();
+      });
+  } catch (error) {
+      console.error('Error during token verification:', error);
+      res.sendStatus(403);
+  }
+};
+app.options('/adminInfo', cors()); 
+app.use('/adminInfo', authenticateToken, (req, res) => {
+  res.send({
+      message: 'Successfully accessed admin info',
+      user: req.user
+  });
 });
 
 

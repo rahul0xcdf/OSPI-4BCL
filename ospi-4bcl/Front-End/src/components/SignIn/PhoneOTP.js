@@ -1,69 +1,70 @@
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import OTPInput from "otp-input-react";
-import PhoneInput from "react-phone-input-2";
-
-import "./OtpPage.css";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { auth } from "./firebase.config";
+import { Toaster, toast } from "react-hot-toast";
+import "./signIn.css";
+import "react-phone-input-2/lib/style.css";
 
 const PhoneOTP = ({ phone_no }) => {
-    const [otpCol, setOtpCol] = useState("");
+    const [otpCol, setOTPCol] = useState("");
     const [bdrRadius, setBdrRadius] = useState("0%");
     const [bdrRadius2, setBdrRadius2] = useState("0%");
     const [bdrRadius3, setBdrRadius3] = useState("0%");
+    const [OTP, setOTP] = useState("");
     const navigate = useNavigate();
+    const [showph, setShowph] = useState(true);
+    const [phone, setPhone] = useState(phone_no);
+    const [user, setUser] = useState(null);
+    const [confirmationResult, setConfirmationResult] = useState(null);
 
     const clrscr = () => {
-        setOtpCol("");
+        setOTP("");
     };
 
-    const OnSubmitFxn = (event) => {
-        event.preventDefault();
-        let otp1 = "654321";
-        if (otpCol === otp1) {
-            alert("Verified successfully!");
+    const sendOtp = async() => {
+try{
+	const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {});
+    const formatted_num=`+91${phone_no}`;
+    console.log('Formatted Phone Number:', formatted_num);
+	const confirmation = await signInWithPhoneNumber(auth,formatted_num, recaptcha);
+	setConfirmationResult(confirmation);	
+    toast.success('OTP sent successfully');
+	}catch(err){
+		console.error(err)}
+}
+
+    const verifyOtp = async (e) => {
+        e.preventDefault(); // Prevent form submission default behavior
+        try {
+            await confirmationResult.confirm(OTP);
             navigate('/SecurityQuestions');
-        } else {
-            alert("Verification unsuccessful! Wrong OTP entered.");
-            navigate('/SignIn');
+        } catch (err) {
+            console.error('Error verifying OTP:', err);
+            toast.error('Failed to verify OTP');
         }
-    }
-
-    const OnEnter = () => {
-        setBdrRadius("20%");
     };
 
-    const onLeave = () => {
-        setBdrRadius("0%");
-    };
-
-    const OnEnter2 = () => {
-        setBdrRadius2("20%");
-    };
-
-    const onLeave2 = () => {
-        setBdrRadius2("0%");
-    };
-
-    const OnEnter3 = () => {
-        setBdrRadius3("20%");
-    };
-
-    const onLeave3 = () => {
-        setBdrRadius3("0%");
-    };
+    const OnEnter = () => setBdrRadius("20%");
+    const onLeave = () => setBdrRadius("0%");
+    const OnEnter2 = () => setBdrRadius2("20%");
+    const onLeave2 = () => setBdrRadius2("0%");
+    const OnEnter3 = () => setBdrRadius3("20%");
+    const onLeave3 = () => setBdrRadius3("0%");
 
     let maskedNum = "XXXXXX";
-    for (let i = 1; i <= 4; i++) {
-        maskedNum += phone_no[i + 5];
+    if (phone_no.length >= 10) {
+        maskedNum += phone_no.slice(-4);
+    } else {
+        maskedNum += "XXXX";
     }
 
     const handleOTPcol = (event) => {
-        setOtpCol(event.target.value);
+        setOTPCol(event.target.value);
     };
 
+    // Timer logic
     const Ref = useRef(null);
-
     const [timer, setTimer] = useState("00:00:00");
 
     const getTimeRemaining = (e) => {
@@ -71,12 +72,7 @@ const PhoneOTP = ({ phone_no }) => {
         const seconds = Math.floor((total / 1000) % 60);
         const minutes = Math.floor((total / 1000 / 60) % 60);
         const hours = Math.floor((total / 1000 / 60 / 60) % 24);
-        return {
-            total,
-            hours,
-            minutes,
-            seconds,
-        };
+        return { total, hours, minutes, seconds };
     };
 
     const startTimer = (e) => {
@@ -94,7 +90,6 @@ const PhoneOTP = ({ phone_no }) => {
 
     const clearTimer = (e) => {
         setTimer("00:00:10");
-
         if (Ref.current) clearInterval(Ref.current);
         const id = setInterval(() => {
             startTimer(e);
@@ -110,14 +105,17 @@ const PhoneOTP = ({ phone_no }) => {
 
     useEffect(() => {
         clearTimer(getDeadTime());
+        sendOtp(); // Call sendOtp when the component mounts
     }, []);
 
-    let shouldDispResend = (timer === "00:00:00");
+    let shouldDispResend = timer === "00:00:00";
     const resendOtp = () => {
         clearTimer(getDeadTime());
         clrscr();
         alert("OTP re-sent! Please check your email.");
-    }
+        sendOtp(); // Resend OTP
+    };
+    
     let shouldDispClear = otpCol.length > 0;
 
     return (
@@ -127,26 +125,37 @@ const PhoneOTP = ({ phone_no }) => {
             <br /><br /><br />
             <h2 align="center">
                 <font>Request resend OTP in {timer}</font><br /><br />
-                <form onSubmit={OnSubmitFxn}>
+                <form onSubmit={verifyOtp}>
                     <label>
-                        Enter the OTP sent to your registered mobile number({maskedNum}) :
+                        Enter the OTP sent to your registered mobile number ({maskedNum}) :
                     </label>
                     <br /><br />
                     <input
                         type="text"
-                        className="otp-input-box"
-                        value={otpCol}
-                        onChange={handleOTPcol}
+                        className="inputBox"
+                        value={OTP}
+                        onChange={(e) => setOTP(e.target.value)} // Corrected onChange handler
                         maxLength={6}
                         minLength={6}
-                        placeholder='e.g. "123456" '
-                        required
-                    /><br /><br />
-                    <button
-                        type="submit"
-                        className="otp-buttons"
-                        style={{ borderRadius: bdrRadius }}
-                        onMouseEnter={OnEnter}
+                        placeholder='e.g. "123456" ' 
+                        required 
+                    /><br></br><br></br>
+			<div id = "recaptcha-container"></div>
+		    <button 
+                        type="submit" 
+			onClick = {sendOtp}
+                        className="buttons" 
+                        style={{ borderRadius: bdrRadius }} 
+                        onMouseEnter={OnEnter} 
+                        onMouseLeave={onLeave}
+                    >
+                        Send
+                    </button>
+                    <button 
+                        type="submit" 
+                        className="buttons" 
+                        style={{ borderRadius: bdrRadius }} 
+                        onMouseEnter={OnEnter} 
                         onMouseLeave={onLeave}
                     >
                         Verify
@@ -154,19 +163,20 @@ const PhoneOTP = ({ phone_no }) => {
                     <br /><br />
                     {shouldDispResend &&
                         <button
+                            type="button"
                             onClick={resendOtp}
-                            className="otp-buttons"
+                            className="buttons"
                             style={{ borderRadius: bdrRadius2 }}
                             onMouseEnter={OnEnter2}
                             onMouseLeave={onLeave2}
                         >
                             Resend OTP
-                        </button>}
-                    <br />
+                        </button>}<br />
                     {shouldDispClear &&
                         <button
+                            type="button"
                             onClick={clrscr}
-                            className="otp-buttons"
+                            className="buttons"
                             style={{ borderRadius: bdrRadius3 }}
                             onMouseEnter={OnEnter3}
                             onMouseLeave={onLeave3}

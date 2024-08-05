@@ -18,6 +18,7 @@ const PhoneNumVer = ({ setDbd,setTfa, phone_no,ctrT,setCtrT }) => {
     const OnSubmitFxn = (event) => {
         event.preventDefault();
         if (phNumCol === phone_no) {
+            console.log(phone_no);
             navigate('/MobileNumberOTP');
         } else {
             if (ctrT < 3) {
