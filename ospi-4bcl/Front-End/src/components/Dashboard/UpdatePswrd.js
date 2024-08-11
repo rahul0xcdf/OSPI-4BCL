@@ -1,25 +1,19 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../SignIn/signIn.css";
 import axios from 'axios';
 
-
-
-
 const UpdatePswrd = ({ setPassword, password }) => {
+    const [username, setUsername] = useState('');
     const [oldPswrd, setOldPswrd] = useState("");
     const [newPswrd1, setNewPswrd1] = useState("");
     const [newPswrd2, setNewPswrd2] = useState("");
     const [bdrRadius, setBdrRadius] = useState("0%");
     const [bdrRadius2, setBdrRadius2] = useState("0%");
     const [message, setMessage] = useState("");
-
-
-
-    
     const navigate = useNavigate();
 
-  const handleOldPswrd = (event) => {
+    const handleOldPswrd = (event) => {
         setOldPswrd(event.target.value);
     };
     const handleNewPswrd1 = (event) => {
@@ -28,6 +22,7 @@ const UpdatePswrd = ({ setPassword, password }) => {
     const handleNewPswrd2 = (event) => {
         setNewPswrd2(event.target.value);
     };
+
     const buttonStyle = {
         borderRadius: bdrRadius,
         height: "100px",
@@ -51,42 +46,37 @@ const UpdatePswrd = ({ setPassword, password }) => {
         setBdrRadius2("0%");
     };
 
-
-    const ChangePassword = async(event) => {
-        event.preventDefault();
+    const handleUpdatePassword = async (e) => {
+        e.preventDefault();
+        setMessage('');
 
         if (oldPswrd === password) {
             if (newPswrd1 === newPswrd2) {
                 if (oldPswrd !== newPswrd1) {
-                try {
-                    // Call the API to update the password
-                    const response = await axios.put('http://localhost:3001/updatePassword', {
-                        //username: username?.sub, // Use user ID or username as per your implementation
-                        oldPswrd,
-                        newPswrd1
-                    });
-
-
-
-                    if (response.status === 200) {
-                        setPassword(newPswrd1);
-                        setMessage("You have successfully changed your password!");
-                    } else {
-                        setMessage("Password change was unsuccessful! Please try again.");
+                    try {
+                        const response = await axios.put('http://localhost:3001/updatePassword', {
+                            username,
+                            oldPswrd,
+                            newPswrd1
+                        });
+                        if (response.status === 200) {
+                            setPassword(newPswrd1);
+                            setMessage("You have successfully changed your password!");
+                        } else {
+                            setMessage("Password change was unsuccessful! Please try again.");
+                        }
+                    } catch (error) {
+                        console.error("Error updating password:", error);
+                        setMessage("An error occurred while updating the password.");
                     }
-                } catch (error) {
-                    console.error("Error updating password:", error);
-                    setMessage("An error occurred while updating the password.");
+                } else {
+                    setMessage("New password must be different from the current one.");
                 }
             } else {
-                setMessage("Password change was unsuccessful! New password must be different from the current one.");
+                setMessage("Both new password fields must match.");
             }
-        } else {
-            setMessage("Password change was unsuccessful! Please ensure that both the new password columns have the same content.");
+            navigate('/Home');
         }
-    
-
-        navigate('/Home');
     };
 
     const clrscr = () => {
@@ -103,7 +93,7 @@ const UpdatePswrd = ({ setPassword, password }) => {
             <hr color="black" />
             <br /><br />
             <h2 align="center">
-                <form onSubmit={ChangePassword}>
+                <form onSubmit={handleUpdatePassword}>
                     <label>Please enter your current password:</label><br />
                     <input
                         type="password"
@@ -165,6 +155,6 @@ const UpdatePswrd = ({ setPassword, password }) => {
             {message && <p style={{ marginTop: '10px' }}>{message}</p>}
         </div>
     );
-    };
 };
+
 export default UpdatePswrd;

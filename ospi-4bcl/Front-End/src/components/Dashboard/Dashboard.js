@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "../SignIn/signIn.css";
 import userIcon from "./IconUserNew.png";
 import * as onz from 'onz-auth';
+import UpdatePswrd from "./UpdatePswrd";
 
 const auth = new onz.Auth({
     clientID: 'mfa-0124f1c6a0', // Replace with your client id
@@ -23,6 +24,14 @@ const Dashboard = ({
     const [isLoggedIn, setIsLoggedIn] = useState(auth.isAuthenticated());
 
     const navigate = useNavigate();
+
+    // Use Effect to handle authentication status on component mount
+    useEffect(() => {
+        if (isLoggedIn) {
+            updateUserTokens();
+            //navigate("/Home/UpdatePassword")
+        }
+    }, [isLoggedIn]);
 
     const handleUpdatePassword = () => {
         if (isLoggedIn) {
@@ -49,11 +58,9 @@ const Dashboard = ({
         setIsLoggingIn(false);
     };
 
-    auth.on("closed", () => {
-        setIsLoggingIn(false);
-    });
-
+    // Handle authentication and token management
     auth.on("authenticated", result => {
+        setIsLoggingIn(false);
         setIsLoggedIn(true);
         updateUserTokens();
     });
@@ -66,6 +73,7 @@ const Dashboard = ({
 
     auth.on("error", error => {
         alert(error);
+        setIsLoggingIn(false);
     });
 
     const updateUserTokens = () => {
@@ -78,17 +86,6 @@ const Dashboard = ({
             idTokenJwt: idTokenJwt
         });
     };
-
-    /*useEffect(() => {
-        if (isLoggedIn) {
-            updateUserTokens();
-            if (window.location.pathname !== '/Home/UpdatePassword') {
-                navigate('/Home/UpdatePassword');
-            }
-        }
-    }, [isLoggedIn, navigate]);
-*/
-
 
     const buttonStyle = {
         borderRadius: bdrRadius,
@@ -143,6 +140,8 @@ const Dashboard = ({
         if (decide) {
             alert("You have been successfully signed out.");
             resetUserData();
+            setIsLoggedIn(false);
+            setUser(null);
             navigate('/SignIn');
         } else {
             alert("Sign Out Cancelled!");
@@ -164,8 +163,6 @@ const Dashboard = ({
 
     return (
         <div>
-            
-                
             <div id="myLoginDiv"></div>
             <h1 align="center">
                 <img
@@ -193,19 +190,19 @@ const Dashboard = ({
                         </button>
                     </span>
                     <br />
-                    <button className="buttons" style={buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave} onClick={handleUpdatePassword} onClick={() => {
-                if (isLoggingIn) {
-                    handleCancelLogin();
-                    return;
-                }
-                if (isLoggedIn) {
-                    handleLogout();
-                } else {
-                    handleLogin();
-                }
-            }}>
-                {isLoggingIn ? 'Cancel Log in' : (isLoggedIn ? 'Log out' : 'Log in')}
-                </button>
+                    <button className="buttons" style={buttonStyle3} onMouseEnter={OnEnter3} onMouseLeave={onLeave3} onClick={() => {
+                        if (isLoggingIn) {
+                            handleCancelLogin();
+                            return;
+                        }
+                        if (isLoggedIn) {
+                            handleLogout();
+                        } else {
+                            handleLogin();
+                        }
+                    }}>
+                        {isLoggingIn ? 'Cancel Log in' : (isLoggedIn ? 'Log out' : 'Log in')}
+                    </button>
                 </span>
             </h2>
         </div>
