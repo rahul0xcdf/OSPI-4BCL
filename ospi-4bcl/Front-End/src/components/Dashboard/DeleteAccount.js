@@ -4,6 +4,7 @@ import "../SignIn/signIn.css";
 import axios from 'axios';
 
 const DeleteAccount = ({
+    username,
     setUsername,
     setPassword,
     setSQ1,
@@ -59,17 +60,21 @@ const DeleteAccount = ({
             if (decide) {
                 try {
                     const response = await axios.post('http://127.0.0.1:3001/deleteAccount', {
-                        email: email_id,
+                        username,
+                        password: Pswrd
                     });
 
                     console.log('Response from server:', response.data);
                     alert("Your account has successfully been deleted.");
 
+                    /*
                     await axios.post('http://127.0.0.1:3001/send-email', {
                         email: email_id,
                         subject: 'Account Deletion Confirmation',
                         message: 'Your account has been successfully deleted.',
                     });
+                    */
+
 
                     setUsername("");
                     setPassword("");
@@ -95,12 +100,13 @@ const DeleteAccount = ({
         } else {
             alert("Deletion Cancelled! You have been logged out, due to security reasons.");
             setCtrW(0);
+            /*
             await axios.post('http://127.0.0.1:3001/send-email', {
                 email: email_id,
                 subject: 'Account Deletion Attempt',
                 message: 'Your account has been attempted to be deleted. If it was not you, please report the incident to us',
             });
-
+            */
             setUsername("");
             setPassword("");
             setSQ1("");
