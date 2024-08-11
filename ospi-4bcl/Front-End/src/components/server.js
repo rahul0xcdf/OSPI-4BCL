@@ -8,6 +8,7 @@ const { auth } = require('express-oauth2-jwt-bearer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
+const jwksClient = require('jwks-rsa');
 
 
 
@@ -16,7 +17,7 @@ const app = express();
 const port = 3001;
 
 app.use(cors({
-  origin: 'http://127.0.0.1:3000', // Allow requests from this origin
+  origin: 'http://127.0.0.1:3000', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -32,13 +33,6 @@ const databasename = 'users';
 let db, collection;
 
 
-app.use(helmet({
-  contentSecurityPolicy: false, // Disable CSP to avoid conflicts with Auth0
-  frameguard: { action: 'deny' }, // Adjust as necessary
-  noSniff: true,
-  xssFilter: true,
-  hidePoweredBy: true,
-}));
 
 MongoClient.connect(url)
   .then((client) => {
@@ -46,8 +40,8 @@ MongoClient.connect(url)
     collection = db.collection('userDetails');
     console.log('Connected to database');
     
-    app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
+    app.listen(port, '127.0.0.1', () => {
+      console.log(`Server is running on http://127.0.0.1:${port}`);
     });
   })
   .catch((err) => {

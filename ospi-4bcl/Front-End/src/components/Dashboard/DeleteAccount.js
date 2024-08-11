@@ -3,38 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import "../SignIn/signIn.css";
 import axios from 'axios';
 
-<<<<<<< HEAD
 const DeleteAccount = ({
-  setUsername,
-  setPassword,
-  setSQ1,
-  setSQ2,
-  setSQ3,
-  setAns1,
-  setAns2,
-  setAns3,
-  setphoneNo,
-  setEmailId,
-  username,
-  password
+    setUsername,
+    setPassword,
+    setSQ1,
+    setSQ2,
+    setSQ3,
+    setAns1,
+    setAns2,
+    setAns3,
+    setphoneNo,
+    setEmailId,
+    password,
+    email_id
 }) => {
-  const [Pswrd, setPswrd] = useState("");
- const [bdrRadius, setBdrRadius] = useState("0%");
-=======
-const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,setAns2,setAns3,setphoneNo,setEmailId,password,email_id}) =>{
-
     const [Pswrd, setPswrd] = useState("");
     const [bdrRadius, setBdrRadius] = useState("0%");
->>>>>>> e4b63069f5494ccdd89a0882f675952b1d2a199e
     const [bdrRadius2, setBdrRadius2] = useState("0%");
-  const [ctrW, setCtrW] = useState(0);
+    const [ctrW, setCtrW] = useState(0);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const handlePswrd = (event) => {
-    setPswrd(event.target.value);
-  };
-
+    const handlePswrd = (event) => {
+        setPswrd(event.target.value);
+    };
 
     const buttonStyle = {
         borderRadius: bdrRadius,
@@ -59,50 +51,56 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
         setBdrRadius2("0%");
     };
 
+    const DelAcc = async (event) => {
+        event.preventDefault();
 
-<<<<<<< HEAD
-  const DelAcc = async (event) => {
-    event.preventDefault();
-=======
         if (Pswrd === password && ctrW < 3) {
             const decide = window.confirm("Are you sure you want to delete your account? By proceeding, you agree to all the terms and conditions.");
-        if(decide){
-            alert("Your account has successfully been deleted.");
-            await axios.post('http://localhost:3001/send-email', {
-                email: email_id, 
-                subject: 'Account Deletion Confirmation',
-                message: 'Your account has been successfully deleted.',
-              });
-            setUsername("");
-            setPassword("");
-            setSQ1("");
-            setSQ2("");
-            setSQ3("");
-            setAns1("");
-            setAns2("");
-            setAns3("");
-            setphoneNo("");
-            setEmailId("");
-            navigate('/SignIn');
-        }
-        else{
-            alert("Deletion Cancelled!");
-        }
-        }
-        else  if (Pswrd !== password && ctrW <= 3){
+            if (decide) {
+                try {
+                    const response = await axios.post('http://127.0.0.1:3001/deleteAccount', {
+                        email: email_id,
+                    });
+
+                    console.log('Response from server:', response.data);
+                    alert("Your account has successfully been deleted.");
+
+                    await axios.post('http://127.0.0.1:3001/send-email', {
+                        email: email_id,
+                        subject: 'Account Deletion Confirmation',
+                        message: 'Your account has been successfully deleted.',
+                    });
+
+                    setUsername("");
+                    setPassword("");
+                    setSQ1("");
+                    setSQ2("");
+                    setSQ3("");
+                    setAns1("");
+                    setAns2("");
+                    setAns3("");
+                    setphoneNo("");
+                    setEmailId("");
+                    navigate('/SignIn');
+                } catch (error) {
+                    console.error('Error deleting account:', error);
+                    alert('Failed to delete account.');
+                }
+            } else {
+                alert("Deletion Cancelled!");
+            }
+        } else if (Pswrd !== password && ctrW <= 3) {
             alert("Deletion Cancelled! Please enter the correct password.");
-            setCtrW(ctrW+1);
-         }
-         else{
+            setCtrW(ctrW + 1);
+        } else {
             alert("Deletion Cancelled! You have been logged out, due to security reasons.");
             setCtrW(0);
-            await axios.post('http://localhost:3001/send-email', {
-                email: email_id, 
+            await axios.post('http://127.0.0.1:3001/send-email', {
+                email: email_id,
                 subject: 'Account Deletion Attempt',
                 message: 'Your account has been attempted to be deleted. If it was not you, please report the incident to us',
-              });
-        
-        
+            });
+
             setUsername("");
             setPassword("");
             setSQ1("");
@@ -114,77 +112,23 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
             setphoneNo("");
             setEmailId("");
             navigate("/SignIn");
-         }   
-           
+        }
     };
+
     const clrscr = () => {
         setPswrd("");
     };
->>>>>>> e4b63069f5494ccdd89a0882f675952b1d2a199e
 
-    if (Pswrd === password && ctrW < 3) {
-      const decide = window.confirm("Are you sure you want to delete your account? By proceeding, you agree to all the terms and conditions.");
-      if (decide) {
-        try {
-          const response = await axios.post('http://localhost:3001/deleteAccount', {
-    username: username, 
-    password: password,
-});
+    const shouldDispClear = Pswrd.length > 0;
 
-          console.log('Response from server:', response.data);
-          alert("Your account has successfully been deleted.");
-          setUsername("");
-          setPassword("");
-          setSQ1("");
-          setSQ2("");
-          setSQ3("");
-          setAns1("");
-          setAns2("");
-          setAns3("");
-          setphoneNo("");
-          setEmailId("");
-          navigate('/SignIn');
-        } catch (error) {
-          console.error('Error deleting account:', error);
-          alert('Failed to delete account.');
-        }
-      } else {
-        alert("Deletion Cancelled!");
-      }
-    } else if (Pswrd !== password && ctrW <= 3) {
-      alert("Deletion Cancelled! Please enter the correct password.");
-      setCtrW(ctrW + 1);
-    } else {
-      alert("Deletion Cancelled! You have been logged out, due to security reasons.");
-      setCtrW(0);
-      setUsername("");
-      setPassword("");
-      setSQ1("");
-      setSQ2("");
-      setSQ3("");
-      setAns1("");
-      setAns2("");
-      setAns3("");
-      setphoneNo("");
-      setEmailId("");
-      navigate("/SignIn");
-    }
-  };
-
-  const clrscr = () => {
-    setPswrd("");
-  };
-
-  const shouldDispClear = Pswrd.length > 0;
-
-   return (
+    return (
         <div>
             <h1 align="center">Delete Account</h1>
             <hr color="black" />
             <br /><br />
             <h2 align="center">
-            <form onSubmit={DelAcc}>
-            <label>Please enter your current password:</label><br /><br /><br />
+                <form onSubmit={DelAcc}>
+                    <label>Please enter your current password:</label><br /><br /><br />
                     <input
                         type="password"
                         className="inputBox"
@@ -218,11 +162,10 @@ const DeleteAccount = ({setUsername,setPassword,setSQ1,setSQ2,setSQ3,setAns1,set
                             </button>
                         </div>
                     )}
-
-            </form>
+                </form>
             </h2>
         </div>
     );
-}
+};
 
 export default DeleteAccount;

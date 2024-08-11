@@ -79,7 +79,7 @@ const Dashboard = ({
         });
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (isLoggedIn) {
             updateUserTokens();
             if (window.location.pathname !== '/Home/UpdatePassword') {
@@ -87,6 +87,8 @@ const Dashboard = ({
             }
         }
     }, [isLoggedIn, navigate]);
+*/
+
 
     const buttonStyle = {
         borderRadius: bdrRadius,
@@ -132,6 +134,10 @@ const Dashboard = ({
         navigate('/Home/DeleteAccount');
     };
 
+    const updateAccount = () => {
+        navigate('/Home/UpdateAccount');
+    };
+
     const SignOut = () => {
         const decide = window.confirm("Are you sure you want to sign out?");
         if (decide) {
@@ -158,19 +164,8 @@ const Dashboard = ({
 
     return (
         <div>
-            <button onClick={() => {
-                if (isLoggingIn) {
-                    handleCancelLogin();
-                    return;
-                }
-                if (isLoggedIn) {
-                    handleLogout();
-                } else {
-                    handleLogin();
-                }
-            }}>
-                {isLoggingIn ? 'Cancel Log in' : (isLoggedIn ? 'Log out' : 'Log in')}
-            </button>
+            
+                
             <div id="myLoginDiv"></div>
             <h1 align="center">
                 <img
@@ -198,9 +193,19 @@ const Dashboard = ({
                         </button>
                     </span>
                     <br />
-                    <button className="buttons" style={buttonStyle3} onMouseEnter={OnEnter3} onMouseLeave={onLeave3} onClick={DelAccount}>
-                        Verify Email
-                    </button>
+                    <button className="buttons" style={buttonStyle} onMouseEnter={OnEnter} onMouseLeave={onLeave} onClick={handleUpdatePassword} onClick={() => {
+                if (isLoggingIn) {
+                    handleCancelLogin();
+                    return;
+                }
+                if (isLoggedIn) {
+                    handleLogout();
+                } else {
+                    handleLogin();
+                }
+            }}>
+                {isLoggingIn ? 'Cancel Log in' : (isLoggedIn ? 'Log out' : 'Log in')}
+                </button>
                 </span>
             </h2>
         </div>
