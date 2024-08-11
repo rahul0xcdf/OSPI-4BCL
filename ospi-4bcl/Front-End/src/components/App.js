@@ -43,6 +43,38 @@ const App = () => {
   const [email_id, setEmailId] = useState("");
 
 
+  useEffect(() => {
+    const isAuthenticated = auth.isAuthenticated();
+    if (isAuthenticated) {
+        const accessToken = auth.getAccessToken();
+        const accessTokenJwt = auth.getDecodedAccessToken();
+        const idTokenJwt = auth.getDecodedIDToken();
+        setUser({
+            accessToken: accessToken,
+            accessTokenJwt: accessTokenJwt,
+            idTokenJwt: idTokenJwt
+        });
+    }
+
+    auth.on("authenticated", result => {
+        const accessToken = auth.getAccessToken();
+        const accessTokenJwt = auth.getDecodedAccessToken();
+        const idTokenJwt = auth.getDecodedIDToken();
+        setUser({
+            accessToken: accessToken,
+            accessTokenJwt: accessTokenJwt,
+            idTokenJwt: idTokenJwt
+        });
+    });
+
+    auth.on("logged_out", () => {
+        setUser(null);
+    });
+
+    auth.on("error", error => {
+        console.error(error);
+    });
+}, []);
 
   
 
