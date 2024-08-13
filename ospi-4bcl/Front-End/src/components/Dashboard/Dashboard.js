@@ -131,17 +131,13 @@ const Dashboard = ({
         navigate('/Home/DeleteAccount');
     };
 
-    const updateAccount = () => {
-        navigate('/Home/UpdateAccount');
-    };
+   
 
     const SignOut = () => {
         const decide = window.confirm("Are you sure you want to sign out?");
         if (decide) {
             alert("You have been successfully signed out.");
             resetUserData();
-            setIsLoggedIn(false);
-            setUser(null);
             navigate('/SignIn');
         } else {
             alert("Sign Out Cancelled!");

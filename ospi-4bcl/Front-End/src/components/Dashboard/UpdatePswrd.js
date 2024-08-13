@@ -54,7 +54,7 @@ const UpdatePswrd = ({ setPassword, password }) => {
             if (newPswrd1 === newPswrd2) {
                 if (oldPswrd !== newPswrd1) {
                     try {
-                        const response = await axios.put('http://localhost:3001/updatePassword', {
+                        const response = await axios.put('http://127.0.0.1:3001/updatePassword', {
                             username,
                             oldPswrd,
                             newPswrd1
