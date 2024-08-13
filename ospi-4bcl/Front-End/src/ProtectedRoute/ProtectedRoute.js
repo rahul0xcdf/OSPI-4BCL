@@ -7,4 +7,4 @@ export default function ProtectedRoute({ user, children }) {
     }
     return children;
 }
-//replace this with uodated password file route
+//replace this with updated password file route
