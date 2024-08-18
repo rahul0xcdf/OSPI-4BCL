@@ -121,7 +121,7 @@ const App = () => {
           
       <Route path = "/Home/UpdatePassword" element = {
         <ProtectedRoute user={user}>
-        <UpdatePswrd setPassword = {setPassword} password = {password}/>
+        <UpdatePswrd setPassword = {setPassword} password = {password} username={username}/>
         </ProtectedRoute>}/>
         
 
