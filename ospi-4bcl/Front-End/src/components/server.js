@@ -196,7 +196,7 @@ app.put('/updatePassword', async (req, res) => {
       return;
     }
 
-    // Update the user's password
+   
     const result = await collection.updateOne(
       { username: username, password: oldPswrd },
       { $set: { password: newPswrd1 } }

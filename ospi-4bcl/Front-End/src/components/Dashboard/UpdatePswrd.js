@@ -5,8 +5,8 @@ import axios from 'axios';
 
 
 
-const UpdatePswrd = ({ setPassword, password }) => {
-    const [username, setUsername] = useState('');
+const UpdatePswrd = ({ setPassword, password,username }) => {
+   
     const [oldPswrd, setOldPswrd] = useState("");
     const [newPswrd1, setNewPswrd1] = useState("");
     const [newPswrd2, setNewPswrd2] = useState("");
@@ -53,6 +53,7 @@ const UpdatePswrd = ({ setPassword, password }) => {
         setMessage('');
 
         if (oldPswrd === password) {
+            
             if (newPswrd1 === newPswrd2) {
                 if (oldPswrd !== newPswrd1) {
                     try {
@@ -64,11 +65,12 @@ const UpdatePswrd = ({ setPassword, password }) => {
                         if (response.status === 200) {
                             setPassword(newPswrd1);
                             setMessage("You have successfully changed your password!");
+                            navigate('/Home');
                         } else {
                             setMessage("Password change was unsuccessful! Please try again.");
                         }
                     } catch (error) {
-                        console.error("Error updating password:", error);
+                        console.error("Error updating password:", error.response || error.message ||error);
                         setMessage("An error occurred while updating the password.");
                     }
                 } else {
@@ -77,7 +79,7 @@ const UpdatePswrd = ({ setPassword, password }) => {
             } else {
                 setMessage("Both new password fields must match.");
             }
-            navigate('/Home');
+            
         }
     };
 
