@@ -197,7 +197,7 @@ const Dashboard = ({
                             handleLogin();
                         }
                     }}>
-                        {isLoggingIn ? 'Cancel Log in' : (isLoggedIn ? 'Log out' : 'Log in')}
+                        {isLoggingIn ? 'Authenticating' : (isLoggedIn ? 'Unauthenticate' : 'Authenticate')}
                     </button>
                 </span>
             </h2>
