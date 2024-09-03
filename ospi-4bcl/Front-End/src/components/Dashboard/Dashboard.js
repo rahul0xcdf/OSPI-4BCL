@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import "../SignIn/signIn.css";
 import userIcon from "./IconUserNew.png";
 import * as onz from 'onz-auth';
-import UpdatePswrd from "./UpdatePswrd";
 
 const auth = new onz.Auth({
     clientID: 'mfa-0124f1c6a0', // Replace with your client id
@@ -19,22 +18,35 @@ const Dashboard = ({
     const [bdrRadius2, setBdrRadius2] = useState("0%");
     const [bdrRadius3, setBdrRadius3] = useState("0%");
     const [bdrRadius4, setBdrRadius4] = useState("0%");
-    const [user, setUser] = useState(null);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(auth.isAuthenticated());
 
     const navigate = useNavigate();
 
-    // Use Effect to handle authentication status on component mount
     useEffect(() => {
-        if (isLoggedIn) {
+        // Redirect based on authentication status
+        if (auth.isAuthenticated()) {
             updateUserTokens();
-            //navigate("/Home/UpdatePassword")
+        } else {
+            navigate('/Home');
         }
-    }, [isLoggedIn]);
+
+        auth.on("authenticated", () => {
+            setIsLoggingIn(false);
+            updateUserTokens();
+        });
+
+        auth.on("logged_out", () => {
+            navigate('/Home');
+        });
+
+        auth.on("error", error => {
+            alert(error);
+            setIsLoggingIn(false);
+        });
+    }, []);
 
     const handleUpdatePassword = () => {
-        if (isLoggedIn) {
+        if (auth.isAuthenticated()) {
             navigate('/Home/UpdatePassword');
         } else {
             handleLogin();
@@ -48,9 +60,6 @@ const Dashboard = ({
 
     const handleLogout = () => {
         auth.logout();
-        setIsLoggedIn(false);
-        setUser(null);
-        navigate('/Home');
     };
 
     const handleCancelLogin = () => {
@@ -58,33 +67,11 @@ const Dashboard = ({
         setIsLoggingIn(false);
     };
 
-    // Handle authentication and token management
-    auth.on("authenticated", result => {
-        setIsLoggingIn(false);
-        setIsLoggedIn(true);
-        updateUserTokens();
-    });
-
-    auth.on("logged_out", () => {
-        setIsLoggedIn(false);
-        setUser(null);
-        navigate('/Home');
-    });
-
-    auth.on("error", error => {
-        alert(error);
-        setIsLoggingIn(false);
-    });
-
     const updateUserTokens = () => {
         const accessToken = auth.getAccessToken();
         const accessTokenJwt = auth.getDecodedAccessToken();
         const idTokenJwt = auth.getDecodedIDToken();
-        setUser({
-            accessToken: accessToken,
-            accessTokenJwt: accessTokenJwt,
-            idTokenJwt: idTokenJwt
-        });
+        // Manage user tokens as needed
     };
 
     const buttonStyle = {
@@ -96,6 +83,7 @@ const Dashboard = ({
 
     const OnEnter = () => setBdrRadius("20%");
     const onLeave = () => setBdrRadius("0%");
+
     const buttonStyle2 = {
         borderRadius: bdrRadius2,
         height: "80px",
@@ -108,6 +96,7 @@ const Dashboard = ({
 
     const OnEnter2 = () => setBdrRadius2("20%");
     const onLeave2 = () => setBdrRadius2("0%");
+
     const buttonStyle3 = {
         borderRadius: bdrRadius3,
         height: "80px",
@@ -117,6 +106,7 @@ const Dashboard = ({
 
     const OnEnter3 = () => setBdrRadius3("20%");
     const onLeave3 = () => setBdrRadius3("0%");
+
     const buttonStyle4 = {
         borderRadius: bdrRadius4,
         height: "80px",
@@ -130,8 +120,6 @@ const Dashboard = ({
     const DelAccount = () => {
         navigate('/Home/DeleteAccount');
     };
-
-   
 
     const SignOut = () => {
         const decide = window.confirm("Are you sure you want to sign out?");
@@ -191,13 +179,13 @@ const Dashboard = ({
                             handleCancelLogin();
                             return;
                         }
-                        if (isLoggedIn) {
+                        if (auth.isAuthenticated()) {
                             handleLogout();
                         } else {
                             handleLogin();
                         }
                     }}>
-                        {isLoggingIn ? 'Authenticating' : (isLoggedIn ? 'Unauthenticate' : 'Authenticate')}
+                        {isLoggingIn ? 'Authenticating' : (auth.isAuthenticated() ? 'Unauthenticate' : 'Authenticate')}
                     </button>
                 </span>
             </h2>
